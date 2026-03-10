@@ -4,480 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Slides semanales de avance por sub área de la Coordinación de Tecnología (CAC)">
+    <title>Avances CAC - Coordinación de Tecnología</title>
+
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23243A85'/><text y='.9em' font-size='80' x='10'>📊</text></svg>">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap');
 
-        /* ── CSS Houdini: permite animar el ángulo del border beam ── */
-        @property --beam-angle {
-            syntax: '<angle>';
-            inherits: false;
-            initial-value: 0deg;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #050507;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        /* ── SLIDE ── */
-        .slide {
-            width: 1000px;
-            height: 580px;
-            background: #09090b;
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ── BACKGROUND BEAMS (Aceternity UI — SVG + CSS dash animation) ── */
-        .bg-beams {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        @keyframes beam-dash {
-            0%   { stroke-dashoffset:  6000; }
-            100% { stroke-dashoffset: -6000; }
-        }
-        .beam {
-            stroke-dasharray: 120 5880;
-            animation: beam-dash var(--dur, 10s) ease-in-out infinite;
-            animation-delay: var(--del, 0s);
-        }
-
-        /* ── AMBIENT GLOWS (mejorados con breathing animation) ── */
-        .glow-1 {
-            position: absolute;
-            top: -80px;
-            left: 5%;
-            width: 420px;
-            height: 280px;
-            background: radial-gradient(ellipse, rgba(36, 58, 133, 0.28) 0%, transparent 65%);
-            pointer-events: none;
-            z-index: 0;
-            animation: breathe 8s ease-in-out infinite;
-        }
-
-        .glow-2 {
-            position: absolute;
-            top: -50px;
-            right: 5%;
-            width: 320px;
-            height: 220px;
-            background: radial-gradient(ellipse, rgba(196, 41, 125, 0.18) 0%, transparent 65%);
-            pointer-events: none;
-            z-index: 0;
-            animation: breathe 10s ease-in-out infinite reverse;
-        }
-
-        .glow-3 {
-            position: absolute;
-            bottom: -70px;
-            left: 5%;
-            width: 360px;
-            height: 240px;
-            background: radial-gradient(ellipse, rgba(106, 191, 75, 0.14) 0%, transparent 65%);
-            pointer-events: none;
-            z-index: 0;
-            animation: breathe 12s ease-in-out infinite;
-        }
-
-        .glow-4 {
-            position: absolute;
-            bottom: -50px;
-            right: 5%;
-            width: 300px;
-            height: 210px;
-            background: radial-gradient(ellipse, rgba(245, 166, 35, 0.14) 0%, transparent 65%);
-            pointer-events: none;
-            z-index: 0;
-            animation: breathe 9s ease-in-out infinite reverse;
-        }
-
-        @keyframes breathe {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50%       { opacity: 1;   transform: scale(1.08); }
-        }
-
-        /* ── CONTENT ── */
-        .content {
-            padding: 26px 34px 16px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ── HEADER ── */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Gradiente animado sobre el logo: la máscara CSS recorta el gradiente
-           exactamente a la forma del logo (píxeles opacos del PNG). */
-        .logo-wrap {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-        }
-        .logo-wrap .header-logo {
-            visibility: hidden;   /* ocupa espacio pero invisible */
-        }
-        .logo-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, #4a6cf7, #C4297D, #6ABF4B, #4a6cf7);
-            background-size: 300% 100%;
-            animation: footer-flow 20s linear infinite;
-            -webkit-mask-image: url(LOGO-CAC-BLANCO.png);
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            -webkit-mask-size: 100% 100%;
-            mask-image: url(LOGO-CAC-BLANCO.png);
-            mask-repeat: no-repeat;
-            mask-position: center;
-            mask-size: 100% 100%;
-            pointer-events: none;
-        }
-
-        /* ── SHIMMER TITLE (Aceternity: Gradient Text / Shimmer)
-           Gradiente animado usando background-clip:text en colores corporativos. ── */
-        .title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(
-                90deg,
-                #4a6cf7 0%,
-                #C4297D 33%,
-                #6ABF4B 66%,
-                #4a6cf7 100%
-            );
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer-title 20s linear infinite;
-        }
-
-        @keyframes shimmer-title {
-            0%   { background-position: 0%   center; }
-            100% { background-position: 300% center; }
-        }
-
-        .subtitle {
-            font-size: 12px;
-            color: #72727e;
-            font-weight: 400;
-            margin-top: 3px;
-        }
-
-        .badge {
-            font-size: 12.5px;
-            color: #d8d8e4;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 5px 13px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            flex-shrink: 0;
-            backdrop-filter: blur(4px);
-        }
-
-        .badge svg { opacity: 0.8; }
-
-        .header-logo {
-            height: 32px;
-            width: auto;
-            opacity: 0.9;
-            flex-shrink: 0;
-            margin-right: 12px;
-        }
-
-        /* ── DIVIDER ── */
-
-        /* ── GRID ── */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 11px;
-            flex: 1;
-            height: 0;
-        }
-
-        /* ── CARDS ── */
-        .card {
-            position: relative;
-            border-radius: 11px;
-            padding: 1px;
-            overflow: hidden;
-            animation: fadeUp 0.5s ease both;
-        }
-
-        .card:nth-child(1) { animation-delay: 0.05s; }
-        .card:nth-child(2) { animation-delay: 0.15s; }
-        .card:nth-child(3) { animation-delay: 0.25s; }
-        .card:nth-child(4) { animation-delay: 0.35s; }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ── BORDER BEAM (Aceternity: Moving Border)
-           Rayo de luz girando alrededor del borde al hacer hover.
-           Usa @property para animar el ángulo del conic-gradient. ── */
-        .card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 12px;
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            background: conic-gradient(
-                from var(--beam-angle),
-                transparent 0deg,
-                var(--beam-color) 45deg,
-                transparent 90deg
-            );
-            animation: beam-rotate 2.5s linear infinite;
-        }
-
-        .card:hover::before { opacity: 1; }
-
-        @keyframes beam-rotate {
-            to { --beam-angle: 360deg; }
-        }
-
-        /* Color del beam por tarjeta */
-        .c-primary  { --beam-color: rgba(74, 108, 247, 0.9); }
-        .c-tertiary { --beam-color: rgba(106, 191, 75, 0.9); }
-        .c-info     { --beam-color: rgba(196, 41, 125, 0.9); }
-        .c-amber    { --beam-color: rgba(245, 166, 35, 0.9); }
-
-        .card:hover {
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-        }
-
-        .card-border {
-            position: absolute;
-            inset: 0;
-            border-radius: 11px;
-            opacity: 0.70;
-            transition: opacity 0.3s;
-            z-index: 1;
-        }
-
-        .card:hover .card-border { opacity: 0.90; }
-
-        /* ── CARD INNER ── */
-        .card-inner {
-            position: relative;
-            background: rgba(12, 12, 18, 0.78);
-            border-radius: 10px;
-            padding: 11px 15px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        /* ── SPOTLIGHT CARD (Aceternity: Card Spotlight)
-           Overlay de luz radial que sigue el cursor — aplicado por JS. ── */
-        .card-spotlight {
-            position: absolute;
-            inset: 0;
-            border-radius: 10px;
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        .card-inner:hover .card-spotlight { opacity: 1; }
-
-        /* ── CARD HEADER ── */
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 9px;
-            position: relative;
-            z-index: 4;
-        }
-
-        .icon-box {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            position: relative;
-        }
-
-        .icon-box svg {
-            width: 17px;
-            height: 17px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .icon-box::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 10px;
-            opacity: 0.4;
-            filter: blur(6px);
-            z-index: 0;
-        }
-
-        .card-title {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #e0e0e5;
-            letter-spacing: -0.15px;
-        }
-
-        /* ── ITEMS ── */
-        .items {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            flex: 1;
-            justify-content: flex-start;
-            position: relative;
-            z-index: 4;
-        }
-
-        .item {
-            font-size: 12.5px;
-            color: #d4d4de;
-            line-height: 1.45;
-            display: flex;
-            gap: 8px;
-            align-items: flex-start;
-        }
-
-        .num {
-            font-weight: 600;
-            flex-shrink: 0;
-            min-width: 16px;
-            font-size: 11.5px;
-            margin-top: 1.5px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .item strong { font-weight: 600; }
-
-        /* ── COLOR THEMES ── */
-        .c-primary .card-border {
-            background: linear-gradient(135deg, rgba(74, 108, 247, 0.55), rgba(74, 108, 247, 0.05));
-        }
-        .c-primary .icon-box       { background: rgba(36, 58, 133, 0.35); }
-        .c-primary .icon-box::after{ background: rgba(74, 108, 247, 0.35); }
-        .c-primary .num            { color: rgba(74, 108, 247, 0.9); }
-        .c-primary .item strong    { color: rgba(160, 180, 255, 1); }
-
-        .c-tertiary .card-border {
-            background: linear-gradient(135deg, rgba(106, 191, 75, 0.5), rgba(106, 191, 75, 0.05));
-        }
-        .c-tertiary .icon-box       { background: rgba(106, 191, 75, 0.28); }
-        .c-tertiary .icon-box::after{ background: rgba(106, 191, 75, 0.3); }
-        .c-tertiary .num            { color: rgba(106, 191, 75, 0.9); }
-        .c-tertiary .item strong    { color: rgba(150, 220, 120, 1); }
-
-        .c-info .card-border {
-            background: linear-gradient(135deg, rgba(196, 41, 125, 0.55), rgba(196, 41, 125, 0.05));
-        }
-        .c-info .icon-box       { background: rgba(196, 41, 125, 0.28); }
-        .c-info .icon-box::after{ background: rgba(196, 41, 125, 0.35); }
-        .c-info .num            { color: rgba(220, 60, 150, 0.9); }
-        .c-info .item strong    { color: rgba(240, 140, 195, 1); }
-
-        .c-amber .card-border {
-            background: linear-gradient(135deg, rgba(245, 166, 35, 0.55), rgba(245, 166, 35, 0.05));
-        }
-        .c-amber .icon-box       { background: rgba(245, 166, 35, 0.28); }
-        .c-amber .icon-box::after{ background: rgba(245, 166, 35, 0.35); }
-        .c-amber .num            { color: rgba(245, 166, 35, 0.92); }
-        .c-amber .item strong    { color: rgba(255, 200, 100, 1); }
-
-        /* ── FOOTER ── */
-        .footer-bar {
-            height: 10px;
-            width: 100%;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
-            background: linear-gradient(
-                90deg,
-                #4a6cf7, #C4297D, #6ABF4B, #4a6cf7
-            );
-            background-size: 300% 100%;
-            animation: footer-flow 20s linear infinite;
-        }
-
-        @keyframes footer-flow {
-            0%   { background-position: 0%   50%; }
-            100% { background-position: 300% 50%; }
-        }
-    </style>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body class="light-mode">
     <div class="slide">
+        <!-- Background Effects -->
         <div class="glow-1"></div>
         <div class="glow-2"></div>
         <div class="glow-3"></div>
         <div class="glow-4"></div>
 
-        <!-- Background Beams SVG (Aceternity UI) -->
+        <!-- Background Blobs (Light Mode) -->
+        <svg class="bg-blobs" viewBox="0 0 1000 580" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="920" cy="-30" rx="200" ry="180" fill="#F1F5F9"/>
+            <ellipse cx="80" cy="620" rx="180" ry="160" fill="#F1F5F9"/>
+            <ellipse cx="960" cy="560" rx="140" ry="130" fill="#F8FAFC"/>
+        </svg>
+
+        <!-- SVG Background Beams -->
         <svg class="bg-beams" viewBox="0 0 696 316" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Base: todas las curvas muy tenues -->
             <path d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875 M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859 M-352 -221C-352 -221 -284 184 180 311C644 438 712 843 712 843 M-338 -237C-338 -237 -270 168 194 295C658 422 726 827 726 827 M-324 -253C-324 -253 -256 152 208 279C672 406 740 811 740 811 M-310 -269C-310 -269 -242 136 222 263C686 390 754 795 754 795 M-296 -285C-296 -285 -228 120 236 247C700 374 768 779 768 779 M-282 -301C-282 -301 -214 104 250 231C714 358 782 763 782 763 M-268 -317C-268 -317 -200 88 264 215C728 342 796 747 796 747 M-254 -333C-254 -333 -186 72 278 199C742 326 810 731 810 731 M-240 -349C-240 -349 -172 56 292 183C756 310 824 715 824 715 M-226 -365C-226 -365 -158 40 306 167C770 294 838 699 838 699 M-212 -381C-212 -381 -144 24 320 151C784 278 852 683 852 683 M-198 -397C-198 -397 -130 8 334 135C798 262 866 667 866 667 M-184 -413C-184 -413 -116 -8 348 119C812 246 880 651 880 651 M-170 -429C-170 -429 -102 -24 362 103C826 230 894 635 894 635 M-156 -445C-156 -445 -88 -40 376 87C840 214 908 619 908 619 M-142 -461C-142 -461 -74 -56 390 71C854 198 922 603 922 603 M-128 -477C-128 -477 -60 -72 404 55C868 182 936 587 936 587 M-114 -493C-114 -493 -46 -88 418 39C882 166 950 571 950 571 M-100 -509C-100 -509 -32 -104 432 23C896 150 964 555 964 555 M-86 -525C-86 -525 -18 -120 446 7C910 134 978 539 978 539 M-72 -541C-72 -541 -4 -136 460 -9C924 118 992 523 992 523 M-58 -557C-58 -557 10 -152 474 -25C938 102 1006 507 1006 507 M-37 -581C-37 -581 31 -176 495 -49C959 78 1027 483 1027 483" stroke="url(#beams-radial)" stroke-opacity="0.13" stroke-width="0.8" fill="none"/>
 
-            <!-- Beams animados con colores corporativos (20 beams, más densos) -->
-            <!-- Beams: rápidos (8-14s) con gap largo → pocos visibles a la vez -->
+            <!-- Animated Beams -->
             <path class="beam" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke="#4a6cf7" stroke-opacity="0.55" stroke-width="1.2" fill="none" style="--dur:10s;--del:0s"/>
             <path class="beam" d="M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859" stroke="#6ABF4B" stroke-opacity="0.4" stroke-width="0.8" fill="none" style="--dur:12s;--del:7s"/>
             <path class="beam" d="M-352 -221C-352 -221 -284 184 180 311C644 438 712 843 712 843" stroke="#C4297D" stroke-opacity="0.5" stroke-width="1.0" fill="none" style="--dur:9s;--del:3s"/>
@@ -507,159 +66,56 @@
                 </radialGradient>
             </defs>
         </svg>
+
+        <!-- Main Content -->
         <div class="content">
+            <!-- Header -->
             <div class="header">
                 <div class="header-left">
                     <div class="logo-wrap">
-                        <img src="LOGO-CAC-BLANCO.png" alt="CAC" class="header-logo">
+                        <img src="assets/images/LOGO-CAC-BLANCO.png" alt="CAC" class="header-logo">
                     </div>
+                    <div class="header-divider"></div>
                     <div>
                         <div class="title">Avances Coordinación de Tecnología</div>
                     </div>
                 </div>
-                <div class="badge">
-                    <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" />
-                        <path d="M16 2v4M8 2v4M3 10h18" />
-                    </svg>
-                    <span id="fecha-badge"></span>
+
+                <!-- Header Right: Theme Toggle & Badge -->
+                <div class="header-right">
+                    <button class="theme-toggle" id="theme-toggle" title="Cambiar modo">
+                        <svg fill="currentColor" viewBox="0 0 24 24" id="sun-icon" aria-label="Modo claro">
+                            <path d="M12 18a6 6 0 100-12 6 6 0 000 12zM12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 0l4.24-4.24M1 12h6m6 0h6m-16.78 7.78l4.24-4.24m5.08 0l4.24 4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                        <svg fill="currentColor" viewBox="0 0 24 24" id="moon-icon" aria-label="Modo oscuro" style="display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <div class="badge">
+                        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                            <path d="M16 2v4M8 2v4M3 10h18" />
+                        </svg>
+                        <span id="fecha-badge"></span>
+                    </div>
                 </div>
             </div>
-            <div class="grid">
 
-                <!-- Pruebas, documentación y soporte -->
-                <div class="card c-primary">
-                    <div class="card-border"></div>
-                    <div class="card-inner" data-glow-color="74,108,247">
-                        <div class="card-spotlight"></div>
-                        <div class="card-header">
-                            <div class="icon-box">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#4a6cf7" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 11l3 3L22 4" />
-                                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                                </svg>
-                            </div>
-                            <div class="card-title">Pruebas, Documentación y Soporte</div>
-                        </div>
-                        <div class="items">
-                            <div class="item"><span class="num">1.</span><span>Parametrización de objetos de BD (tablas, sp, vistas) para nueva cobertura (hepatitis) en reporte de atenciones. Menú prevsCan renombrado a Prevención secundaria.</span></div>
-                            <div class="item"><span class="num">2.</span><span>Asistencias técnicas a IPS para adecuado procesamiento, elaboración y envío del reporte de atenciones en salud.</span></div>
-                            <div class="item"><span class="num">3.</span><span>Alertas de correo para IPS, requerimientos de interoperabilidad y formulación de requerimientos a innovación para tableros PrevRenal y Artritis.</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Infraestructura -->
-                <div class="card c-tertiary">
-                    <div class="card-border"></div>
-                    <div class="card-inner" data-glow-color="106,191,75">
-                        <div class="card-spotlight"></div>
-                        <div class="card-header">
-                            <div class="icon-box">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#6ABF4B" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="2" width="20" height="8" rx="2" />
-                                    <rect x="2" y="14" width="20" height="8" rx="2" />
-                                    <circle cx="6" cy="6" r="1" />
-                                    <circle cx="6" cy="18" r="1" />
-                                </svg>
-                            </div>
-                            <div class="card-title">Infraestructura</div>
-                        </div>
-                        <div class="items">
-                            <div class="item"><span class="num">1.</span><span>Renovación de Certificado SSL en los servidores NGINX.</span></div>
-                            <div class="item"><span class="num">2.</span><span>Sesión de implementación de Licenciamiento Microsoft 365 con nuevo proveedor.</span></div>
-                            <div class="item"><span class="num">3.</span><span>Avance en pruebas sobre directivas de seguridad en Sistema Operativo Mac iOS.</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Base de datos -->
-                <div class="card c-info">
-                    <div class="card-border"></div>
-                    <div class="card-inner" data-glow-color="196,41,125">
-                        <div class="card-spotlight"></div>
-                        <div class="card-header">
-                            <div class="icon-box">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#C4297D" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <ellipse cx="12" cy="5" rx="9" ry="3" />
-                                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                                </svg>
-                            </div>
-                            <div class="card-title">Base de Datos</div>
-                        </div>
-                        <div class="items">
-                            <div class="item"><span class="num">1.</span><span>Actualización tabla BDDA de VIH histórica.</span></div>
-                            <div class="item"><span class="num">2.</span><span>Nuevo sp de duplicados modificado con ayuda de IA.</span></div>
-                            <div class="item"><span class="num">3.</span><span>Generación de base de requeridos VIH con implementación del nuevo sp de duplicados. Reporte de usuarios SISCAC y reporte de cantidad de cargues Multiportal.</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desarrollo -->
-                <div class="card c-amber">
-                    <div class="card-border"></div>
-                    <div class="card-inner" data-glow-color="245,166,35">
-                        <div class="card-spotlight"></div>
-                        <div class="card-header">
-                            <div class="icon-box">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="16 18 22 12 16 6" />
-                                    <polyline points="8 6 2 12 8 18" />
-                                </svg>
-                            </div>
-                            <div class="card-title">Desarrollo</div>
-                        </div>
-                        <div class="items">
-                            <div class="item"><span class="num">1.</span><span>Actualización del gestor de soportes para mejorar la experiencia de usuario al descargar archivos de gran tamaño.</span></div>
-                            <div class="item"><span class="num">2.</span><span>Socialización del módulo de gestión interna con nuevas funciones: gestión de catálogos y requeridos.</span></div>
-                            <div class="item"><span class="num">3.</span><span>General: Inicio formal del plan de formación 2026 TI/Innovación.</span></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <!-- Cards Grid (populated by data-manager.js) -->
+            <div class="grid"></div>
         </div>
-        <div class="footer-bar"></div>
+
+        <!-- Footer Bar -->
+        <div class="footer-bar">
+            <div class="bar-1"></div>
+            <div class="bar-2"></div>
+            <div class="bar-3"></div>
+        </div>
     </div>
 
-    <script>
-        // ── Fecha dinámica ──
-        const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-        const hoy = new Date();
-        document.getElementById('fecha-badge').textContent = `${hoy.getDate()} de ${meses[hoy.getMonth()]}`;
-
-        // ── SPOTLIGHT CARD (Aceternity: Card Spotlight)
-        //    Sigue el cursor con un radial-gradient por card-inner ──
-        const spotlightColors = {
-            'c-primary':  'rgba(74, 108, 247, 0.08)',
-            'c-tertiary': 'rgba(106, 191, 75, 0.08)',
-            'c-info':     'rgba(196, 41, 125, 0.08)',
-            'c-amber':    'rgba(245, 166, 35, 0.08)',
-        };
-
-        document.querySelectorAll('.card').forEach(card => {
-            const colorKey = [...card.classList].find(c => c.startsWith('c-'));
-            const color = spotlightColors[colorKey] || 'rgba(255,255,255,0.06)';
-            const spotlight = card.querySelector('.card-spotlight');
-
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                spotlight.style.background =
-                    `radial-gradient(circle 130px at ${x}px ${y}px, ${color} 0%, transparent 70%)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                spotlight.style.background = 'none';
-            });
-        });
-    </script>
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
