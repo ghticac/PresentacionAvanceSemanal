@@ -19,9 +19,9 @@
       "strokeColor": "#4a6cf7",
       "glowColor": "74,108,247",
       "items": [
-        "Parametrización de objetos de BD (tablas, sp, vistas) para nueva cobertura (hepatitis) en reporte de atenciones. Menú prevsCan renombrado a Prevención secundaria.",
-        "Asistencias técnicas a IPS para adecuado procesamiento, elaboración y envío del reporte de atenciones en salud.",
-        "Alertas de correo para IPS, requerimientos de interoperabilidad y formulación de requerimientos a innovación para tableros PrevRenal y Artritis."
+        "Pruebas funcionales y de código estático del Visor de texto líquido, pruebas y parametrización de PrevsRenal.",
+        "Asistencia técnica para el procesamiento de información de PREVS CAN para MALLAMAS EAPB, así como asistencias técnicas para el procesamiento de información orientadas al reporte de atenciones en salud.",
+        "Levantamiento de requerimientos y elaboración de historias de usuario para: actualización del Visor de texto liquido, Bots aprobación soportes, gestión interna y ajustes gestor soportes."
       ]
     },
     {
@@ -42,9 +42,9 @@
       "strokeColor": "#6ABF4B",
       "glowColor": "106,191,75",
       "items": [
-        "Renovación de Certificado SSL en los servidores NGINX.",
-        "Sesión de implementación de Licenciamiento Microsoft 365 con nuevo proveedor.",
-        "Avance en pruebas sobre directivas de seguridad en Sistema Operativo Mac iOS."
+        "Inicio del proceso de creación y validación de políticas de seguridad con Licenciamiento Microsoft E5 (restricciones en controles de navegación, Suspensión por litigio, archivado Online). Se continúa validando correcta aplicación de políticas en equipos Mac.",
+        "Migración de Windows Business a Windows Enterprise en todos los equipos e instalación de Windows Defender Server en Servidores Windows.",
+        "Ventana de apagado de servidores del centro de datos por mantenimiento eléctrico en el edificio."
       ]
     },
     {
@@ -62,9 +62,9 @@
       "strokeColor": "#C4297D",
       "glowColor": "196,41,125",
       "items": [
-        "Actualización tabla BDDA de VIH histórica.",
-        "Nuevo sp de duplicados modificado con ayuda de IA.",
-        "Generación de base de requeridos VIH con implementación del nuevo sp de duplicados. Reporte de usuarios SISCAC y reporte de cantidad de cargues Multiportal."
+        "Cargue de Población de Esclerosis Múltiple 2025 a Audicac en ambiente de producción.",
+        "Extracción y depuración de la Base de Requeridos de población con VIH y Sin VIH (Trabajo en conjunto con Gestión de la Información).",
+        "Ajustes a Variables, opciones de respuesta y comodines de Hepatitis C en ambiente de pruebas."
       ]
     },
     {
@@ -81,9 +81,9 @@
       "strokeColor": "#F5A623",
       "glowColor": "245,166,35",
       "items": [
-        "Actualización del gestor de soportes para mejorar la experiencia de usuario al descargar archivos de gran tamaño.",
-        "Socialización del módulo de gestión interna con nuevas funciones: gestión de catálogos y requeridos.",
-        "General: Inicio formal del plan de formación 2026 TI/Innovación."
+        "Actualización del Visor de Texto Líquido Interno: se completó el primer módulo con autenticación nativa integrada a Microsoft 365.",
+        "Iniciada etapa de planeación para nuevo bot de gestión y aprobación de soportes. Finalizado desarrollo y socialización del submódulo de Gestión Interna con funcionalidades de Requeridos y Catálogos (Pendiente aprobación para pase a producción).",
+        "Se realizaron ajustes a las APIs y al manual técnico de interoperabilidad, incluyendo nuevos filtros de búsqueda dinámicos solicitados por Anaswayuu."
       ]
     }
   ]
