@@ -94,8 +94,56 @@ Formato de presentación estática en HTML/CSS puro — un archivo `index.html` 
 - `index.html` — slide de la semana actual
 - `LOGO-CAC-BLANCO.png` — logo (no se usa directamente en el slide actual)
 
+## Sistema de Datos (JSON)
+
+**IMPORTANTE:** Todos los contenidos se manejan mediante un archivo JSON centralizado.
+
+### Estructura de datos
+```
+data/
+└── data.json
+```
+
+### Formato JSON
+```json
+{
+  "metadata": {
+    "title": "Avances Coordinación de Tecnología",
+    "subtitle": "Semana del 10 de marzo, 2026",
+    "week": "2026-03-10"
+  },
+  "cards": [
+    {
+      "id": "primary",
+      "colorClass": "c-primary",
+      "title": "Pruebas, Documentación y Soporte",
+      "items": ["Logro 1", "Logro 2", "Logro 3"]
+    },
+    // ... más cartas
+  ]
+}
+```
+
+### Cartas disponibles (en orden)
+1. **primary** (`c-primary`) — Pruebas, Documentación y Soporte
+2. **tertiary** (`c-tertiary`) — Infraestructura
+3. **info** (`c-info`) — Base de Datos
+4. **amber** (`c-amber`) — Desarrollo
+
+### Cómo modificar contenido
+1. **Abrir** `data/data.json`
+2. **Actualizar** los campos `title`, `items` en la carta deseada
+3. **Guardar** — El cambio es automático (DataManager recarga los datos)
+4. **Actualizar la fecha** en `metadata.week` si es una nueva semana
+
+### Animaciones y estilos
+- Las cartas se renderizan dinámicamente desde el JSON
+- Los colores, iconos y estilos se aplican automáticamente según `colorClass`
+- Máximo 3 items por card (el JSON estructura esto automáticamente)
+
 ## Convenciones de edición
-- Actualizar la fecha en el badge cada semana
-- Máximo 3 items por card (usar `.item.empty` con `—` para los vacíos)
+- **SIEMPRE modificar `data/data.json`**, nunca editar HTML manualmente
+- Actualizar la fecha en `data.json` cada semana
 - Mantener los 4 colores de área asignados a las mismas sub áreas
 - No cambiar dimensiones del slide (1000×580) para consistencia con capturas
+- Los iconos SVG están definidos en el JSON (no modificar manualmente)

@@ -5,12 +5,16 @@
 import ThemeManager from './theme.js';
 import DateManager from './date.js';
 import SpotlightEffect from './spotlight.js';
+import DataManager from './data-manager.js';
 
 /**
  * Initialize Application
  * Sets up all modules when DOM is ready
  */
 function initializeApp() {
+    // Initialize data loading (must be first)
+    new DataManager();
+
     // Initialize theme management
     new ThemeManager();
 

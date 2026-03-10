@@ -17,24 +17,29 @@
 
 :root {
     /* Light Mode (Default) */
-    --bg-body: #f5f5f7;
-    --bg-slide: #ffffff;
-    --bg-card: rgba(240, 240, 245, 0.95);
+    --bg-body: #F8FAFC;
+    --bg-slide: #FFFFFF;
+    --bg-card: rgba(248, 250, 252, 0.97);
 
-    --text-primary: #050507;
-    --text-secondary: #1a1a1f;
-    --text-muted: #6e6e7a;
-    --text-dim: #999a9f;
-    --text-badge: #78788a;
+    --text-primary: #26477E;
+    --text-secondary: #26477E;
+    --text-muted: #475569;
+    --text-dim: #94A3B8;
+    --text-badge: #64748B;
 
-    --border-subtle: rgba(0, 0, 0, 0.08);
-    --border-card: rgba(0, 0, 0, 0.06);
+    --border-subtle: #E2E8F0;
+    --border-card: #E2E8F0;
 
-    /* Brand Colors */
+    /* Brand Colors — Dark Mode Palette (shared) */
     --color-primary: #4a6cf7;
     --color-info: #C4297D;
     --color-tertiary: #6ABF4B;
     --color-amber: #F5A623;
+
+    /* Brand Colors for Light Mode */
+    --lm-primary: #26477E;
+    --lm-info: #B91F84;
+    --lm-tertiary: #77BC43;
 
     /* Transitions */
     --duration-fast: 0.15s;
@@ -108,7 +113,8 @@ body.dark-mode {
 }
 
 body.light-mode {
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 24px rgba(28, 53, 94, 0.08), 0 1px 4px rgba(28, 53, 94, 0.04);
+    --shadow-md: 0 2px 8px rgba(28, 53, 94, 0.06);
 }
 
 /* ───────────────────────────────────────────────────────────

@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "title": "Avances Coordinación de Tecnología",
+    "subtitle": "Semana del 10 de marzo, 2026",
+    "week": "2026-03-10"
+  },
+  "cards": [
+    {
+      "id": "primary",
+      "colorClass": "c-primary",
+      "title": "Pruebas, Documentación y Soporte",
+      "icon": {
+        "viewBox": "0 0 24 24",
+        "paths": [
+          "M9 11l3 3L22 4",
+          "M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"
+        ]
+      },
+      "strokeColor": "#4a6cf7",
+      "glowColor": "74,108,247",
+      "items": [
+        "Parametrización de objetos de BD (tablas, sp, vistas) para nueva cobertura (hepatitis) en reporte de atenciones. Menú prevsCan renombrado a Prevención secundaria.",
+        "Asistencias técnicas a IPS para adecuado procesamiento, elaboración y envío del reporte de atenciones en salud.",
+        "Alertas de correo para IPS, requerimientos de interoperabilidad y formulación de requerimientos a innovación para tableros PrevRenal y Artritis."
+      ]
+    },
+    {
+      "id": "tertiary",
+      "colorClass": "c-tertiary",
+      "title": "Infraestructura",
+      "icon": {
+        "viewBox": "0 0 24 24",
+        "rects": [
+          { "x": "2", "y": "2", "width": "20", "height": "8", "rx": "2" },
+          { "x": "2", "y": "14", "width": "20", "height": "8", "rx": "2" }
+        ],
+        "circles": [
+          { "cx": "6", "cy": "6", "r": "1" },
+          { "cx": "6", "cy": "18", "r": "1" }
+        ]
+      },
+      "strokeColor": "#6ABF4B",
+      "glowColor": "106,191,75",
+      "items": [
+        "Renovación de Certificado SSL en los servidores NGINX.",
+        "Sesión de implementación de Licenciamiento Microsoft 365 con nuevo proveedor.",
+        "Avance en pruebas sobre directivas de seguridad en Sistema Operativo Mac iOS."
+      ]
+    },
+    {
+      "id": "info",
+      "colorClass": "c-info",
+      "title": "Base de Datos",
+      "icon": {
+        "viewBox": "0 0 24 24",
+        "paths": [
+          "M21 12c0 1.66-4 3-9 3s-9-1.34-9-3",
+          "M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"
+        ],
+        "ellipse": { "cx": "12", "cy": "5", "rx": "9", "ry": "3" }
+      },
+      "strokeColor": "#C4297D",
+      "glowColor": "196,41,125",
+      "items": [
+        "Actualización tabla BDDA de VIH histórica.",
+        "Nuevo sp de duplicados modificado con ayuda de IA.",
+        "Generación de base de requeridos VIH con implementación del nuevo sp de duplicados. Reporte de usuarios SISCAC y reporte de cantidad de cargues Multiportal."
+      ]
+    },
+    {
+      "id": "amber",
+      "colorClass": "c-amber",
+      "title": "Desarrollo",
+      "icon": {
+        "viewBox": "0 0 24 24",
+        "polylines": [
+          "16 18 22 12 16 6",
+          "8 6 2 12 8 18"
+        ]
+      },
+      "strokeColor": "#F5A623",
+      "glowColor": "245,166,35",
+      "items": [
+        "Actualización del gestor de soportes para mejorar la experiencia de usuario al descargar archivos de gran tamaño.",
+        "Socialización del módulo de gestión interna con nuevas funciones: gestión de catálogos y requeridos.",
+        "General: Inicio formal del plan de formación 2026 TI/Innovación."
+      ]
+    }
+  ]
+}
