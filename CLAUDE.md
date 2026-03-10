@@ -104,7 +104,12 @@ data/
 └── data.json
 ```
 
-### Formato JSON
+### Formato JSON (con soporte de sub-viñetas)
+
+**Items pueden ser:**
+- **Strings simples** (viñeta principal solamente)
+- **Objetos con `text` y `subitems`** (viñeta principal + sub-viñetas)
+
 ```json
 {
   "metadata": {
@@ -117,11 +122,34 @@ data/
       "id": "primary",
       "colorClass": "c-primary",
       "title": "Pruebas, Documentación y Soporte",
-      "items": ["Logro 1", "Logro 2", "Logro 3"]
-    },
-    // ... más cartas
+      "items": [
+        {
+          "text": "Item principal sin sub-viñetas"
+        },
+        {
+          "text": "Item con sub-viñetas:",
+          "subitems": [
+            "Primera sub-viñeta",
+            "Segunda sub-viñeta",
+            "Tercera sub-viñeta"
+          ]
+        }
+      ]
+    }
   ]
 }
+```
+
+**Formato de viñetas en el slide:**
+```
+1. Item principal sin sub-viñetas
+
+2. Item con sub-viñetas:
+   • Primera sub-viñeta
+   • Segunda sub-viñeta
+   • Tercera sub-viñeta
+
+3. Otro item principal
 ```
 
 ### Cartas disponibles (en orden)
@@ -132,14 +160,43 @@ data/
 
 ### Cómo modificar contenido
 1. **Abrir** `data/data.json`
-2. **Actualizar** los campos `title`, `items` en la carta deseada
+2. **Actualizar** los campos en la carta deseada
 3. **Guardar** — El cambio es automático (DataManager recarga los datos)
 4. **Actualizar la fecha** en `metadata.week` si es una nueva semana
+
+### Estructura de Items (viñetas)
+
+**Item simple (solo viñeta principal):**
+```json
+{
+  "text": "Texto del item principal"
+}
+```
+Renderiza como: `1. Texto del item principal`
+
+**Item con sub-viñetas (viñeta principal + secundarias):**
+```json
+{
+  "text": "Item principal con desglose:",
+  "subitems": [
+    "Primera sub-viñeta",
+    "Segunda sub-viñeta"
+  ]
+}
+```
+Renderiza como:
+```
+1. Item principal con desglose:
+   • Primera sub-viñeta
+   • Segunda sub-viñeta
+```
 
 ### Animaciones y estilos
 - Las cartas se renderizan dinámicamente desde el JSON
 - Los colores, iconos y estilos se aplican automáticamente según `colorClass`
-- Máximo 3 items por card (el JSON estructura esto automáticamente)
+- Viñetas: numeradas (1, 2, 3) en items principales
+- Sub-viñetas: viñetas de bala (•) en subitems
+- No hay límite de sub-viñetas por item
 
 ## Convenciones de edición
 - **SIEMPRE modificar `data/data.json`**, nunca editar HTML manualmente

@@ -693,6 +693,22 @@ body.light-mode .c-tertiary .item strong {
     font-weight: var(--font-weight-semibold);
 }
 
+/* Subitems */
+.item.subitem {
+    font-size: 12px;
+    padding-left: 16px;
+    margin-top: -2px;
+}
+
+.bullet {
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+    min-width: 12px;
+    font-size: 12px;
+    margin-top: 2px;
+    color: var(--text-muted);
+}
+
 /* ───────────────────────────────────────────────────────────
    FOOTER BAR
    ─────────────────────────────────────────────────────────── */
