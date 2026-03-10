@@ -86,7 +86,12 @@ class DataManager {
         const itemsContainer = document.createElement('div');
         itemsContainer.className = 'items';
 
-        cardData.items.forEach((itemText, idx) => {
+        cardData.items.forEach((itemData, idx) => {
+            // Handle both string and object formats
+            const itemText = typeof itemData === 'string' ? itemData : itemData.text;
+            const subitems = typeof itemData === 'object' && itemData.subitems ? itemData.subitems : null;
+
+            // Main item
             const item = document.createElement('div');
             item.className = 'item';
 
@@ -100,6 +105,25 @@ class DataManager {
             item.appendChild(num);
             item.appendChild(text);
             itemsContainer.appendChild(item);
+
+            // Subitems if they exist
+            if (subitems && Array.isArray(subitems)) {
+                subitems.forEach((subitemText) => {
+                    const subitem = document.createElement('div');
+                    subitem.className = 'item subitem';
+
+                    const bullet = document.createElement('span');
+                    bullet.className = 'bullet';
+                    bullet.textContent = '•';
+
+                    const subtext = document.createElement('span');
+                    subtext.textContent = subitemText;
+
+                    subitem.appendChild(bullet);
+                    subitem.appendChild(subtext);
+                    itemsContainer.appendChild(subitem);
+                });
+            }
         });
 
         cardInner.appendChild(spotlight);

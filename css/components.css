@@ -8,11 +8,11 @@
 
 .slide {
     width: 1000px;
-    height: 580px;
+    min-height: 580px;
     background: var(--bg-slide);
     border-radius: var(--radius-lg);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-lg);
@@ -154,11 +154,11 @@ body.dark-mode .glow-4 {
    ─────────────────────────────────────────────────────────── */
 
 .content {
-    padding: 18px 28px 12px;
+    padding: 15px 26px 10px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     z-index: var(--z-overlay);
 }
@@ -171,7 +171,8 @@ body.dark-mode .glow-4 {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: var(--space-lg);
+    margin-bottom: 12px;
+    flex-shrink: 0;
 }
 
 .header-left {
@@ -374,10 +375,11 @@ body.light-mode .badge {
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 8px;
+    grid-auto-rows: 1fr;
+    gap: 6px;
     flex: 1;
-    height: 0;
+    min-height: auto;
+    align-items: stretch;
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -387,9 +389,11 @@ body.light-mode .badge {
 .card {
     position: relative;
     border-radius: var(--radius-md);
-    padding: 1px;
+    padding: 2px;
     overflow: hidden;
     animation: fadeUp var(--duration-slow) ease both;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:nth-child(1) { animation-delay: 0.05s; }
@@ -442,13 +446,13 @@ body.light-mode .badge {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-md);
-    opacity: 0.70;
+    opacity: 0.85;
     transition: opacity var(--duration-fast);
     z-index: 1;
 }
 
 .card:hover .card-border {
-    opacity: 0.90;
+    opacity: 1;
 }
 
 /* Card Inner */
@@ -456,14 +460,14 @@ body.light-mode .badge {
     position: relative;
     background: var(--bg-card);
     border-radius: 10px;
-    padding: 14px 18px;
-    height: 100%;
+    padding: 11px 14px;
     display: flex;
     flex-direction: column;
+    flex: 1;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--border-card);
-    overflow: hidden;
+    overflow: visible;
     z-index: var(--z-elevated);
     transition: background-color var(--duration-base) var(--timing-ease),
                 border-color var(--duration-base) var(--timing-ease);
@@ -489,7 +493,8 @@ body.light-mode .badge {
     display: flex;
     align-items: center;
     gap: var(--space-md);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
     position: relative;
     z-index: 4;
 }
@@ -652,21 +657,23 @@ body.light-mode .c-tertiary .item strong {
 .items {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
     flex: 1;
     justify-content: flex-start;
     position: relative;
     z-index: 4;
+    overflow: visible;
 }
 
 .item {
-    font-size: 13.5px;
+    font-size: 12.5px;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.4;
     display: flex;
     gap: var(--space-md);
     align-items: flex-start;
     transition: color var(--duration-base) var(--timing-ease);
+    word-wrap: break-word;
 }
 
 .item.empty span:last-child {
@@ -684,6 +691,22 @@ body.light-mode .c-tertiary .item strong {
 
 .item strong {
     font-weight: var(--font-weight-semibold);
+}
+
+/* Subitems */
+.item.subitem {
+    font-size: 12px;
+    padding-left: 16px;
+    margin-top: -2px;
+}
+
+.bullet {
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+    min-width: 12px;
+    font-size: 12px;
+    margin-top: 2px;
+    color: var(--text-muted);
 }
 
 /* ───────────────────────────────────────────────────────────

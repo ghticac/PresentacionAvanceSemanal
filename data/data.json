@@ -19,9 +19,21 @@
       "strokeColor": "#4a6cf7",
       "glowColor": "74,108,247",
       "items": [
-        "Parametrización de objetos de BD (tablas, sp, vistas) para nueva cobertura (hepatitis) en reporte de atenciones. Menú prevsCan renombrado a Prevención secundaria.",
-        "Asistencias técnicas a IPS para adecuado procesamiento, elaboración y envío del reporte de atenciones en salud.",
-        "Alertas de correo para IPS, requerimientos de interoperabilidad y formulación de requerimientos a innovación para tableros PrevRenal y Artritis."
+        {
+          "text": "Ejecución de pruebas funcionales y análisis de código estático del módulo Visor de Texto Líquido, incluyendo pruebas y parametrización del componente PrevsRenal."
+        },
+        {
+          "text": "Asistencia técnica para el procesamiento de información de PREVS CAN para MALLAMAS EAPB, así como soporte en procesos de consolidación de información orientados al reporte de atenciones en salud."
+        },
+        {
+          "text": "Levantamiento de requerimientos y elaboración de historias de usuario para:",
+          "subitems": [
+            "Actualización del Visor de Texto Líquido.",
+            "Desarrollo de bot para aprobación de soportes.",
+            "Mejoras en Gestión Interna.",
+            "Ajustes al Gestor de Soportes."
+          ]
+        }
       ]
     },
     {
@@ -42,9 +54,27 @@
       "strokeColor": "#6ABF4B",
       "glowColor": "106,191,75",
       "items": [
-        "Renovación de Certificado SSL en los servidores NGINX.",
-        "Sesión de implementación de Licenciamiento Microsoft 365 con nuevo proveedor.",
-        "Avance en pruebas sobre directivas de seguridad en Sistema Operativo Mac iOS."
+        {
+          "text": "Inicio del proceso de creación y validación de políticas de seguridad asociadas al licenciamiento Microsoft E5, incluyendo restricciones en controles de navegación."
+        },
+        {
+          "text": "Migración de Windows Business a Windows Enterprise en los equipos de la organización."
+        },
+        {
+          "text": "Instalación y configuración de Windows Defender for Servers en servidores Windows."
+        },
+        {
+          "text": "Ejecución de ventana programada de apagado de servidores del centro de datos debido a mantenimiento eléctrico del edificio."
+        },
+        {
+          "text": "Activación de suspensión por litigio (Litigation Hold) en buzones asociados a licencias Microsoft E5."
+        },
+        {
+          "text": "Habilitación de archivado online para todos los buzones corporativos."
+        },
+        {
+          "text": "Validación continua de la correcta aplicación de políticas de seguridad en equipos Mac."
+        }
       ]
     },
     {
@@ -62,9 +92,15 @@
       "strokeColor": "#C4297D",
       "glowColor": "196,41,125",
       "items": [
-        "Actualización tabla BDDA de VIH histórica.",
-        "Nuevo sp de duplicados modificado con ayuda de IA.",
-        "Generación de base de requeridos VIH con implementación del nuevo sp de duplicados. Reporte de usuarios SISCAC y reporte de cantidad de cargues Multiportal."
+        {
+          "text": "Cargue de la población de Esclerosis Múltiple 2025 en Audicac en ambiente de producción."
+        },
+        {
+          "text": "Extracción y depuración de la base de requeridos de población con VIH y sin VIH, en trabajo conjunto con el área de Gestión de la Información."
+        },
+        {
+          "text": "Ajustes a variables, opciones de respuesta y comodines del módulo de Hepatitis C en ambiente de pruebas."
+        }
       ]
     },
     {
@@ -81,9 +117,18 @@
       "strokeColor": "#F5A623",
       "glowColor": "245,166,35",
       "items": [
-        "Actualización del gestor de soportes para mejorar la experiencia de usuario al descargar archivos de gran tamaño.",
-        "Socialización del módulo de gestión interna con nuevas funciones: gestión de catálogos y requeridos.",
-        "General: Inicio formal del plan de formación 2026 TI/Innovación."
+        {
+          "text": "Actualización del Visor de Texto Líquido Interno: finalización del primer módulo con autenticación nativa integrada a Microsoft 365."
+        },
+        {
+          "text": "Inicio de la fase de planeación para el desarrollo de un nuevo bot orientado a la gestión y aprobación de soportes."
+        },
+        {
+          "text": "Finalización del desarrollo y socialización del nuevo submódulo de Gestión Interna, incorporando funcionalidades de Requeridos y Catálogos. Pendiente aprobación para despliegue a producción."
+        },
+        {
+          "text": "Ajustes a APIs y al manual técnico de interoperabilidad, incorporando nuevos filtros de búsqueda dinámicos solicitados por Anaswayuu."
+        }
       ]
     }
   ]
