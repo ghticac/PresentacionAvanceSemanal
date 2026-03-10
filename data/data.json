@@ -20,10 +20,11 @@
       "glowColor": "74,108,247",
       "items": [
         {
-          "text": "Ejecución de pruebas funcionales y análisis de código estático del módulo Visor de Texto Líquido, incluyendo pruebas y parametrización del componente PrevsRenal."
+          "text": "Pruebas funcionales :  Visor de texto líquido (incluye pruebas de código estático) y  parametrización de PrevsRenal."
         },
+        
         {
-          "text": "Asistencia técnica para el procesamiento de información de PREVS CAN para MALLAMAS EAPB, así como soporte en procesos de consolidación de información orientados al reporte de atenciones en salud."
+          "text": "Asistencia técnica para el procesamiento de información de PREVS CAN para MALLAMAS EAPB  , así como asistencias técnicas para el procesamiento de información orientadas al reporte de atenciones en salud."
         },
         {
           "text": "Levantamiento de requerimientos y elaboración de historias de usuario para:",

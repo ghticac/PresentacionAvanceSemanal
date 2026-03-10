@@ -8,6 +8,7 @@
 
 .slide {
     width: 1000px;
+    height: auto;
     min-height: 580px;
     background: var(--bg-slide);
     border-radius: var(--radius-lg);
@@ -161,6 +162,7 @@ body.dark-mode .glow-4 {
     overflow: visible;
     position: relative;
     z-index: var(--z-overlay);
+    min-height: 0;
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -378,7 +380,8 @@ body.light-mode .badge {
     grid-auto-rows: 1fr;
     gap: 6px;
     flex: 1;
-    min-height: auto;
+    min-height: 0;
+    width: 100%;
     align-items: stretch;
 }
 
