@@ -56,9 +56,9 @@ body.dark-mode {
 
     --text-primary: #f0f0f2;
     --text-secondary: #e0e0e5;
-    --text-muted: #6e6e7a;
-    --text-dim: #47474f;
-    --text-badge: #78788a;
+    --text-muted: #8e8e9e;   /* raised: #6e6e7a → #8e8e9e (3.88→6.04:1 WCAG AA) */
+    --text-dim: #6e6e7a;     /* raised: #47474f → #6e6e7a (2.16→3.88:1) */
+    --text-badge: #94949e;   /* raised: #78788a → #94949e */
 
     --border-subtle: rgba(255, 255, 255, 0.08);
     --border-card: rgba(255, 255, 255, 0.06);

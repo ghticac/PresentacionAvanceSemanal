@@ -15,7 +15,7 @@ class SpotlightEffect {
     }
 
     init() {
-        this.attachSpotlights();
+        document.addEventListener('cardsRendered', () => this.attachSpotlights());
     }
 
     attachSpotlights() {

@@ -1,0 +1,24 @@
+{
+  "name": "presentacionavancesemanal",
+  "version": "1.0.0",
+  "description": "Slides semanales de avance por sub área de la Coordinación de Tecnología (CAC). Presentación estática moderna con soporte de modo claro/oscuro y efectos visuales avanzados.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghticac/PresentacionAvanceSemanal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ghticac/PresentacionAvanceSemanal/issues"
+  },
+  "homepage": "https://github.com/ghticac/PresentacionAvanceSemanal#readme",
+  "devDependencies": {
+    "playwright": "^1.58.2"
+  }
+}

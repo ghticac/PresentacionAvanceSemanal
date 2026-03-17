@@ -1,8 +1,8 @@
 {
   "metadata": {
     "title": "Avances Coordinación de Tecnología",
-    "subtitle": "Semana del 10 de marzo, 2026",
-    "week": "2026-03-10"
+    "subtitle": "Semana del 17 de Marzo, 2026",
+    "week": "2026-03-17"
   },
   "cards": [
     {
@@ -12,28 +12,28 @@
       "icon": {
         "viewBox": "0 0 24 24",
         "paths": [
-          "M9 11l3 3L22 4",
-          "M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"
+          "M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2",
+          "M6.453 15h11.094",
+          "M8.5 2h7"
         ]
       },
       "strokeColor": "#4a6cf7",
       "glowColor": "74,108,247",
       "items": [
         {
-          "text": "Pruebas funcionales :  Visor de texto líquido (incluye pruebas de código estático) y  parametrización de PrevsRenal."
-        },
-        
-        {
-          "text": "Asistencia técnica para el procesamiento de información de PREVS CAN para MALLAMAS EAPB  , así como asistencias técnicas para el procesamiento de información orientadas al reporte de atenciones en salud."
+          "title": "Levantamiento de requerimientos e historias de usuario",
+          "text": "Submódulo Seguimiento Cargue Soporte: variables IPS, cambio de régimen y estado Aprobado. Organización de matriz para seguimiento de entidades en adaptación para interoperabilidad y multiportal.",
+          "itemIcon": "clipboard"
         },
         {
-          "text": "Levantamiento de requerimientos y elaboración de historias de usuario para:",
-          "subitems": [
-            "Actualización del Visor de Texto Líquido.",
-            "Desarrollo de bot para aprobación de soportes.",
-            "Mejoras en Gestión Interna.",
-            "Ajustes al Gestor de Soportes."
-          ]
+          "title": "Capacitación y asistencia técnica",
+          "text": "Capacitación dirigida a la IPS Sanar y Curar. Asistencia técnica en el proceso de cargue de información para Sanidad Militar.",
+          "itemIcon": "users"
+        },
+        {
+          "title": "Capacitación Multiportal — EPS Capresoca",
+          "text": "Pruebas a nueva funcionalidad del motor de reglas y pruebas al nuevo reporte de atenciones en salud.",
+          "itemIcon": "monitor"
         }
       ]
     },
@@ -43,38 +43,41 @@
       "title": "Infraestructura",
       "icon": {
         "viewBox": "0 0 24 24",
-        "rects": [
-          { "x": "2", "y": "2", "width": "20", "height": "8", "rx": "2" },
-          { "x": "2", "y": "14", "width": "20", "height": "8", "rx": "2" }
-        ],
-        "circles": [
-          { "cx": "6", "cy": "6", "r": "1" },
-          { "cx": "6", "cy": "18", "r": "1" }
+        "paths": [
+          "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+          "m9 12 2 2 4-4"
         ]
       },
       "strokeColor": "#6ABF4B",
       "glowColor": "106,191,75",
       "items": [
         {
-          "text": "Inicio del proceso de creación y validación de políticas de seguridad asociadas al licenciamiento Microsoft E5, incluyendo restricciones en controles de navegación."
+          "title": "Seguridad de endpoints",
+          "text": "Finalización de configuración y limpieza de agentes legacy en equipos.",
+          "itemIcon": "shield",
+          "subitems": [
+            "Se finalizó la configuración del control de navegación por Defender.",
+            "Se desinstaló Trellix de todos los equipos.",
+            "En proceso: corrección de versionamiento de Windows sin activar."
+          ]
         },
         {
-          "text": "Migración de Windows Business a Windows Enterprise en los equipos de la organización."
+          "title": "Mantenimiento y respaldo",
+          "text": "Mantenimiento programado para sábado 21 de marzo de 2026.",
+          "itemIcon": "wrench",
+          "subitems": [
+            "Actualización de servidores a Windows Server 2025.",
+            "Copia de soportes adicionales (requerimiento Minsalud) a disco externo con escaneo y generación de HASH de seguridad."
+          ]
         },
         {
-          "text": "Instalación y configuración de Windows Defender for Servers en servidores Windows."
-        },
-        {
-          "text": "Ejecución de ventana programada de apagado de servidores del centro de datos debido a mantenimiento eléctrico del edificio."
-        },
-        {
-          "text": "Activación de suspensión por litigio (Litigation Hold) en buzones asociados a licencias Microsoft E5."
-        },
-        {
-          "text": "Habilitación de archivado online para todos los buzones corporativos."
-        },
-        {
-          "text": "Validación continua de la correcta aplicación de políticas de seguridad en equipos Mac."
+          "title": "Proyectos de infraestructura",
+          "text": "Nuevos entornos y optimización de recursos virtuales.",
+          "itemIcon": "server",
+          "subitems": [
+            "Habilitación de accesos y creación de servidor con restricciones para usuarios IDATA (extracción de datos).",
+            "Actualización de segmentos de red, memoria RAM y almacenamiento en servidores virtuales de Kubernetes."
+          ]
         }
       ]
     },
@@ -85,8 +88,10 @@
       "icon": {
         "viewBox": "0 0 24 24",
         "paths": [
-          "M21 12c0 1.66-4 3-9 3s-9-1.34-9-3",
-          "M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"
+          "M3 5V19A9 3 0 0 0 15 21.84",
+          "M21 5V8",
+          "M21 12L18 17H22L19 22",
+          "M3 12A9 3 0 0 0 14.59 14.87"
         ],
         "ellipse": { "cx": "12", "cy": "5", "rx": "9", "ry": "3" }
       },
@@ -94,13 +99,19 @@
       "glowColor": "196,41,125",
       "items": [
         {
-          "text": "Cargue de la población de Esclerosis Múltiple 2025 en Audicac en ambiente de producción."
+          "title": "Requeridos VIH y Sin VIH",
+          "text": "Generación y publicación de requeridos a entidades.",
+          "itemIcon": "send"
         },
         {
-          "text": "Extracción y depuración de la base de requeridos de población con VIH y sin VIH, en trabajo conjunto con el área de Gestión de la Información."
+          "title": "Entrega de primera Preliminar BDDA",
+          "text": "Base de datos después de auditoría para las patologías: Enfermedad de Gaucher y Esclerosis Múltiple.",
+          "itemIcon": "bar-chart"
         },
         {
-          "text": "Ajustes a variables, opciones de respuesta y comodines del módulo de Hepatitis C en ambiente de pruebas."
+          "title": "Optimización TextoLíquido",
+          "text": "Mejora en el rendimiento de los procesos internos de TextoLíquido.",
+          "itemIcon": "zap"
         }
       ]
     },
@@ -110,25 +121,28 @@
       "title": "Desarrollo",
       "icon": {
         "viewBox": "0 0 24 24",
-        "polylines": [
-          "16 18 22 12 16 6",
-          "8 6 2 12 8 18"
+        "paths": [
+          "M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1",
+          "M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"
         ]
       },
       "strokeColor": "#F5A623",
       "glowColor": "245,166,35",
       "items": [
         {
-          "text": "Actualización del Visor de Texto Líquido Interno: finalización del primer módulo con autenticación nativa integrada a Microsoft 365."
+          "title": "Mejoras en Gestor de Soportes",
+          "text": "Se habilita la opción para que las EAPBs puedan modificar soportes previamente aprobados.",
+          "itemIcon": "file-edit"
         },
         {
-          "text": "Inicio de la fase de planeación para el desarrollo de un nuevo bot orientado a la gestión y aprobación de soportes."
+          "title": "Visor Texto Líquido (pruebas)",
+          "text": "Optimización de UI/UX, incorporación de nuevas funcionalidades y refuerzo en seguridad.",
+          "itemIcon": "eye"
         },
         {
-          "text": "Finalización del desarrollo y socialización del nuevo submódulo de Gestión Interna, incorporando funcionalidades de Requeridos y Catálogos. Pendiente aprobación para despliegue a producción."
-        },
-        {
-          "text": "Ajustes a APIs y al manual técnico de interoperabilidad, incorporando nuevos filtros de búsqueda dinámicos solicitados por Anaswayuu."
+          "title": "Nueva API TextoLíquido",
+          "text": "API de interoperabilidad: permite consultar textos líquidos de soportes PDF.",
+          "itemIcon": "terminal"
         }
       ]
     }

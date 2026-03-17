@@ -21,7 +21,7 @@ class ThemeManager {
     }
 
     loadSavedTheme() {
-        const savedTheme = localStorage.getItem(this.STORAGE_KEY) || this.LIGHT_MODE;
+        const savedTheme = localStorage.getItem(this.STORAGE_KEY) || this.DARK_MODE;
         this.setTheme(savedTheme);
     }
 

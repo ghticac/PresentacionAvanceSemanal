@@ -42,6 +42,8 @@ class DataManager {
             const card = this.createCard(cardData, index);
             grid.appendChild(card);
         });
+
+        document.dispatchEvent(new CustomEvent('cardsRendered', { bubbles: true }));
     }
 
     /**
@@ -50,6 +52,7 @@ class DataManager {
     createCard(cardData, index) {
         const card = document.createElement('div');
         card.className = `card ${cardData.colorClass}`;
+        card.dataset.cardId = cardData.id;
         card.style.animationDelay = `${0.05 + index * 0.1}s`;
 
         // Card border

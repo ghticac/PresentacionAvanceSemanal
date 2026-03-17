@@ -8,8 +8,7 @@
 
 .slide {
     width: 1000px;
-    height: auto;
-    min-height: 580px;
+    height: min(576px, calc(100svh - 20px));
     background: var(--bg-slide);
     border-radius: var(--radius-lg);
     position: relative;
@@ -159,7 +158,7 @@ body.dark-mode .glow-4 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
     z-index: var(--z-overlay);
     min-height: 0;
@@ -470,7 +469,7 @@ body.light-mode .badge {
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--border-card);
-    overflow: visible;
+    overflow: hidden;
     z-index: var(--z-elevated);
     transition: background-color var(--duration-base) var(--timing-ease),
                 border-color var(--duration-base) var(--timing-ease);
@@ -503,10 +502,11 @@ body.light-mode .badge {
 }
 
 .card-title {
-    font-size: 15px;
+    font-family: var(--font-display);
+    font-size: 13.5px;
     font-weight: var(--font-weight-bold);
     color: var(--text-secondary);
-    letter-spacing: -0.15px;
+    letter-spacing: -0.2px;
     transition: color var(--duration-base) var(--timing-ease);
 }
 
@@ -712,6 +712,11 @@ body.light-mode .c-tertiary .item strong {
     color: var(--text-muted);
 }
 
+.c-primary  .bullet { color: rgba(74, 108, 247, 0.75); }
+.c-tertiary .bullet { color: rgba(106, 191, 75, 0.75); }
+.c-info     .bullet { color: rgba(196, 41, 125, 0.75); }
+.c-amber    .bullet { color: rgba(245, 166, 35, 0.75); }
+
 /* ───────────────────────────────────────────────────────────
    FOOTER BAR
    ─────────────────────────────────────────────────────────── */
@@ -722,6 +727,7 @@ body.light-mode .c-tertiary .item strong {
     flex-shrink: 0;
     position: relative;
     z-index: var(--z-overlay);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     background: linear-gradient(
         90deg,
         var(--color-primary),
@@ -756,4 +762,404 @@ body.dark-mode .bar-1,
 body.dark-mode .bar-2,
 body.dark-mode .bar-3 {
     display: none;
+}
+
+/* ───────────────────────────────────────────────────────────
+   CARD — OVERFLOW EXPAND
+   ─────────────────────────────────────────────────────────── */
+
+.card--expandable {
+    cursor: pointer;
+}
+
+/* Fade gradient masking overflow content (only for truly overflowing cards) */
+.card--has-more .card-inner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, transparent, var(--bg-card));
+    border-radius: 0 0 10px 10px;
+    pointer-events: none;
+    z-index: 8;
+}
+
+/* "Ver todo" pill button */
+.card-expand-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+    cursor: pointer;
+    z-index: 9;
+    pointer-events: none;
+    transition: background var(--duration-fast) ease,
+                color var(--duration-fast) ease;
+    letter-spacing: 0.1px;
+}
+
+.card--expandable:hover .card-expand-btn {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+}
+
+body.light-mode .card-expand-btn {
+    background: rgba(28, 53, 94, 0.06);
+    border-color: rgba(28, 53, 94, 0.12);
+}
+
+body.light-mode .card--expandable:hover .card-expand-btn {
+    background: rgba(28, 53, 94, 0.12);
+}
+
+/* ───────────────────────────────────────────────────────────
+   CARD DETAIL OVERLAY — fills the slide exactly
+   ─────────────────────────────────────────────────────────── */
+
+.card-detail-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.card-detail-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 7, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+}
+
+body.light-mode .card-detail-backdrop {
+    background: rgba(240, 244, 250, 0.90);
+}
+
+/* Panel fills the overlay (slide minus 10px padding) */
+.card-detail-panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: var(--radius-md);
+    padding: 0;
+    overflow: hidden;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+}
+
+body.light-mode .card-detail-panel {
+    box-shadow: 0 4px 24px rgba(28, 53, 94, 0.14);
+}
+
+/* ───────────────────────────────────────────────────────────
+   SLIDE EXPANDIDA — Opción A: Achievement Cards
+   ─────────────────────────────────────────────────────────── */
+
+/* Top accent gradient bar */
+.cd-accent-bar {
+    height: 4px;
+    flex-shrink: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.c-primary  .cd-accent-bar { background: linear-gradient(90deg, #4a6cf7, #7b96ff, #4a6cf7); background-size: 200%; animation: footer-flow 8s linear infinite; }
+.c-tertiary .cd-accent-bar { background: linear-gradient(90deg, #6ABF4B, #9de06e, #6ABF4B); background-size: 200%; animation: footer-flow 8s linear infinite; }
+.c-info     .cd-accent-bar { background: linear-gradient(90deg, #C4297D, #e55ca6, #C4297D); background-size: 200%; animation: footer-flow 8s linear infinite; }
+.c-amber    .cd-accent-bar { background: linear-gradient(90deg, #F5A623, #ffc55e, #F5A623); background-size: 200%; animation: footer-flow 8s linear infinite; }
+
+/* Header */
+.cd-header {
+    padding: 16px 22px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.cd-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cd-icon {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 12px !important;
+    flex-shrink: 0;
+}
+
+.cd-icon svg {
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.cd-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cd-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: var(--font-weight-extra-bold);
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    line-height: 1.15;
+    transition: color var(--duration-base) var(--timing-ease);
+}
+
+.cd-week {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.1px;
+    transition: color var(--duration-base) var(--timing-ease);
+}
+
+/* Items grid — bento layout: hero left (full height), others stacked right */
+.cd-items-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    padding: 12px 18px 14px;
+}
+
+/* Hero card spans full height of left column */
+.cd-item-card.cd-hero {
+    grid-row: 1 / -1;
+}
+
+/* Mini achievement card — centered content */
+.cd-item-card {
+    position: relative;
+    background: var(--bg-slide);
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color var(--duration-base) var(--timing-ease),
+                border-color var(--duration-base) var(--timing-ease);
+}
+
+/* Top accent line per mini-card */
+.cd-item-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 10px 10px 0 0;
+}
+
+.c-primary  .cd-item-card::before { background: rgba(74, 108, 247, 0.55); }
+.c-tertiary .cd-item-card::before { background: rgba(106, 191, 75, 0.55); }
+.c-info     .cd-item-card::before { background: rgba(196, 41, 125, 0.55); }
+.c-amber    .cd-item-card::before { background: rgba(245, 166, 35, 0.55); }
+
+/* Number pill badge — small absolute top-left */
+.cd-item-badge {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    padding: 2px 7px;
+    border-radius: 8px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+}
+
+.c-primary  .cd-item-badge { color: #4a6cf7; background: rgba(74, 108, 247, 0.10); }
+.c-tertiary .cd-item-badge { color: #6ABF4B; background: rgba(106, 191, 75, 0.10); }
+.c-info     .cd-item-badge { color: #C4297D; background: rgba(196, 41, 125, 0.10); }
+.c-amber    .cd-item-badge { color: #F5A623; background: rgba(245, 166, 35, 0.10); }
+
+/* Content block — icon + title + desc + subitems, left-aligned */
+.cd-item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+/* Large contextual icon — left-aligned above title */
+.cd-item-icon-lg {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    opacity: 0.55;
+    margin-bottom: 4px;
+}
+
+/* Hero card: larger icon + text + more padding */
+.cd-hero .cd-item-icon-lg {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 6px;
+}
+
+.cd-hero {
+    padding: 18px 24px 22px;
+}
+
+/* Hero without subitems: scale up text to fill space */
+.cd-hero:not(:has(.cd-subitems)) .cd-item-title {
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.cd-hero:not(:has(.cd-subitems)) .cd-item-desc {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.c-primary  .cd-item-icon-lg { stroke: #4a6cf7; }
+.c-tertiary .cd-item-icon-lg { stroke: #6ABF4B; }
+.c-info     .cd-item-icon-lg { stroke: #C4297D; }
+.c-amber    .cd-item-icon-lg { stroke: #F5A623; }
+
+/* Item title — prominent */
+.cd-item-title {
+    font-size: 14.5px;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    line-height: 1.45;
+    transition: color var(--duration-base) var(--timing-ease);
+}
+
+/* Item description — below title, slightly higher contrast than muted */
+.cd-item-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    opacity: 0.72;
+    line-height: 1.55;
+    transition: color var(--duration-base) var(--timing-ease);
+}
+
+/* Subitems */
+.cd-subitems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cd-subitems li {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding-left: 14px;
+    position: relative;
+    transition: color var(--duration-base) var(--timing-ease);
+}
+
+.cd-subitems li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 6px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+}
+
+.c-primary  .cd-subitems li::before { background: rgba(74, 108, 247, 0.65); }
+.c-tertiary .cd-subitems li::before { background: rgba(106, 191, 75, 0.65); }
+.c-info     .cd-subitems li::before { background: rgba(196, 41, 125, 0.65); }
+.c-amber    .cd-subitems li::before { background: rgba(245, 166, 35, 0.65); }
+
+/* Close button — absolute top-right of panel */
+.card-detail-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: var(--text-muted);
+    transition: background var(--duration-fast) ease,
+                color var(--duration-fast) ease;
+}
+
+.card-detail-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+.card-detail-close:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--text-primary);
+}
+
+body.light-mode .card-detail-close {
+    background: rgba(28, 53, 94, 0.06);
+    border-color: rgba(28, 53, 94, 0.14);
+}
+
+body.light-mode .card-detail-close:hover {
+    background: rgba(28, 53, 94, 0.12);
+}
+
+/* ───────────────────────────────────────────────────────────
+   VIEW TRANSITION — Card Expand / Collapse
+   ─────────────────────────────────────────────────────────── */
+
+@keyframes vt-card-exit {
+    to { opacity: 0; transform: scale(1.04); }
+}
+
+@keyframes vt-card-enter {
+    from { opacity: 0; transform: scale(0.96); }
+}
+
+::view-transition-old(card-expanding) {
+    animation: 260ms cubic-bezier(0.4, 0, 1, 1) both vt-card-exit;
+}
+
+::view-transition-new(card-expanding) {
+    animation: 360ms cubic-bezier(0, 0, 0.2, 1) both vt-card-enter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(card-expanding),
+    ::view-transition-new(card-expanding) {
+        animation-duration: 0.001ms !important;
+    }
 }

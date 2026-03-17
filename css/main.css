@@ -27,8 +27,6 @@ body {
     .slide {
         width: 90vw !important;
         max-width: 900px;
-        min-height: auto !important;
-        height: auto !important;
     }
 
     .header {
@@ -49,8 +47,6 @@ body {
     .slide {
         width: 95vw !important;
         max-width: 820px;
-        height: auto !important;
-        min-height: auto !important;
     }
 
     .title {
@@ -70,8 +66,6 @@ body {
     .slide {
         width: 100vw !important;
         max-width: 700px;
-        height: auto !important;
-        min-height: auto !important;
     }
 
     .content {
@@ -110,8 +104,6 @@ body {
     .slide {
         width: 100vw !important;
         max-width: 580px;
-        height: auto !important;
-        min-height: auto !important;
     }
 
     .title {

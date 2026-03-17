@@ -202,5 +202,33 @@ Renderiza como:
 - **SIEMPRE modificar `data/data.json`**, nunca editar HTML manualmente
 - Actualizar la fecha en `data.json` cada semana
 - Mantener los 4 colores de área asignados a las mismas sub áreas
-- No cambiar dimensiones del slide (1000×580) para consistencia con capturas
+- Ancho del slide: **1000px fijo**. Alto: `auto` (crece con el contenido)
+- Resolución de presentación objetivo: **1080×786px** — el slide debe caber en ese alto
+- Si el contenido supera 786px de alto, reducir densidad (menos subitems o font-size más pequeño)
 - Los iconos SVG están definidos en el JSON (no modificar manualmente)
+
+## Workflow semanal
+1. Editar `data/data.json` con avances y fecha de la semana
+2. `/slide-qa` — validar estructura JSON, items, clases CSS
+3. `/contrast-check` — verificar ratios WCAG si se cambiaron colores
+4. `/preview-slide` — screenshot Playwright 1000×580 + métricas de layout
+5. Push a `main` → deploy automático en Vercel
+
+## Skills disponibles
+
+### Proyecto (`.claude/skills/`)
+| Skill | Cuándo usarlo |
+|---|---|
+| `/preview-slide` | Después de cualquier cambio visual, antes de commit |
+| `/slide-qa` | Validar data.json, clases CSS, estructura HTML cada semana |
+| `/contrast-check` | Al cambiar colores en `css/variables.css` |
+
+### Globales (instalados vía `npx skills add`)
+| Skill | Cuándo usarlo |
+|---|---|
+| `/web-design-guidelines` | Auditoría completa de accesibilidad/UX (100+ reglas) |
+| `/frontend-design` | Crear o refinar componentes con alta calidad visual |
+| `/webapp-testing` | Testing Playwright avanzado, debugging DOM |
+| `/deploy-to-vercel` | Deploy manual a preview URL de Vercel |
+| `/theme-factory` | Prototipar paletas de color alternativas |
+| `/skill-creator` | Crear o mejorar skills del proyecto |
