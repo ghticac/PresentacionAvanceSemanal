@@ -12,7 +12,7 @@
     background: var(--bg-slide);
     border-radius: var(--radius-lg);
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-lg);
@@ -33,6 +33,7 @@
     z-index: var(--z-background);
     opacity: 1;
     transition: opacity var(--duration-base) var(--timing-ease);
+    clip-path: inset(0 round var(--radius-lg));
 }
 
 /* Light mode: mostrar beams con colores adaptados para fondo claro */
@@ -89,41 +90,45 @@ body.dark-mode .bg-beams {
 }
 
 .glow-1 {
-    top: -80px;
+    top: 0;
     left: 5%;
     width: 420px;
     height: 280px;
     background: radial-gradient(ellipse, rgba(36, 58, 133, 0.28) 0%, transparent 65%);
     --glow-duration: 8s;
+    transform: translateY(-40%);
 }
 
 .glow-2 {
-    top: -50px;
+    top: 0;
     right: 5%;
     width: 320px;
     height: 220px;
     background: radial-gradient(ellipse, rgba(196, 41, 125, 0.18) 0%, transparent 65%);
     --glow-duration: 10s;
     animation-direction: reverse;
+    transform: translateY(-30%);
 }
 
 .glow-3 {
-    bottom: -70px;
+    bottom: 0;
     left: 5%;
     width: 360px;
     height: 240px;
     background: radial-gradient(ellipse, rgba(106, 191, 75, 0.14) 0%, transparent 65%);
     --glow-duration: 12s;
+    transform: translateY(40%);
 }
 
 .glow-4 {
-    bottom: -50px;
+    bottom: 0;
     right: 5%;
     width: 300px;
     height: 210px;
     background: radial-gradient(ellipse, rgba(245, 166, 35, 0.14) 0%, transparent 65%);
     --glow-duration: 9s;
     animation-direction: reverse;
+    transform: translateY(30%);
 }
 
 body.light-mode .glow-1 {
@@ -887,6 +892,7 @@ body.light-mode .card-detail-panel {
     z-index: 0;
     opacity: 1;
     transition: opacity var(--duration-base) var(--timing-ease);
+    clip-path: inset(0 round var(--radius-md));
 }
 
 /* Light mode: beams clonados también visibles con mismos overrides */
@@ -943,6 +949,17 @@ body.light-mode .cd-bg-glow.glow-4 {
 .card-detail-panel .card-detail-close {
     z-index: 10;
 }
+
+/* Color temático del ícono X según sección */
+.c-primary  .card-detail-close { color: #4a6cf7; border-color: rgba(74, 108, 247, 0.25); }
+.c-tertiary .card-detail-close { color: #6ABF4B; border-color: rgba(106, 191, 75, 0.25); }
+.c-info     .card-detail-close { color: #C4297D; border-color: rgba(196, 41, 125, 0.25); }
+.c-amber    .card-detail-close { color: #F5A623; border-color: rgba(245, 166, 35, 0.25); }
+
+.c-primary  .card-detail-close:hover { background: rgba(74, 108, 247, 0.12); }
+.c-tertiary .card-detail-close:hover { background: rgba(106, 191, 75, 0.12); }
+.c-info     .card-detail-close:hover { background: rgba(196, 41, 125, 0.12); }
+.c-amber    .card-detail-close:hover { background: rgba(245, 166, 35, 0.12); }
 
 /* ───────────────────────────────────────────────────────────
    FOOTER DEL PANEL EXPANDIDO
