@@ -35,8 +35,21 @@
     transition: opacity var(--duration-base) var(--timing-ease);
 }
 
+/* Light mode: mostrar beams con colores adaptados para fondo claro */
 body.light-mode .bg-beams {
-    opacity: 0;
+    opacity: 1;
+}
+
+/* Static paths: muy sutiles sobre fondo claro */
+body.light-mode .bg-beams > path:not(.beam) {
+    stroke: rgba(74, 108, 247, 0.07);
+    stroke-opacity: 1;
+}
+
+/* Animated beams: colores de área a opacidad reducida para fondo claro */
+body.light-mode .bg-beams .beam {
+    stroke-opacity: 0.18;
+    stroke-width: 1;
 }
 
 body.dark-mode .bg-beams {
@@ -47,20 +60,9 @@ body.dark-mode .bg-beams {
    BACKGROUND BLOBS (Light Mode Only)
    ─────────────────────────────────────────────────────────── */
 
+/* bg-blobs reemplazados por beams animados — ocultos permanentemente */
 .bg-blobs {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    display: none;
-}
-
-body.light-mode .bg-blobs {
-    display: block;
-}
-
-body.dark-mode .bg-blobs {
-    display: none;
+    display: none !important;
 }
 
 @keyframes beam-dash {
@@ -423,7 +425,7 @@ body.light-mode .badge {
         var(--beam-color) 45deg,
         transparent 90deg
     );
-    animation: beam-rotate 2.5s linear infinite;
+    animation: beam-rotate 5s linear infinite;
 }
 
 .card:hover::before {
@@ -434,11 +436,11 @@ body.light-mode .badge {
     to { --beam-angle: 360deg; }
 }
 
-/* Beam colors */
-.c-primary  { --beam-color: rgba(74, 108, 247, 0.9); }
-.c-tertiary { --beam-color: rgba(106, 191, 75, 0.9); }
-.c-info     { --beam-color: rgba(196, 41, 125, 0.9); }
-.c-amber    { --beam-color: rgba(245, 166, 35, 0.9); }
+/* Beam colors — atenuados */
+.c-primary  { --beam-color: rgba(74, 108, 247, 0.4); }
+.c-tertiary { --beam-color: rgba(106, 191, 75, 0.4); }
+.c-info     { --beam-color: rgba(196, 41, 125, 0.4); }
+.c-amber    { --beam-color: rgba(245, 166, 35, 0.4); }
 
 .card:hover {
     box-shadow: var(--shadow-md);
@@ -448,26 +450,24 @@ body.light-mode .badge {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-md);
-    opacity: 0.85;
+    opacity: 0.10;
     transition: opacity var(--duration-fast);
     z-index: 1;
 }
 
 .card:hover .card-border {
-    opacity: 1;
+    opacity: 0.20;
 }
 
 /* Card Inner */
 .card-inner {
     position: relative;
-    background: var(--bg-card);
+    background: transparent;
     border-radius: 10px;
     padding: 11px 14px;
     display: flex;
     flex-direction: column;
     flex: 1;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--border-card);
     overflow: hidden;
     z-index: var(--z-elevated);
@@ -841,8 +841,8 @@ body.light-mode .card--expandable:hover .card-expand-btn {
     position: absolute;
     inset: 0;
     background: rgba(5, 5, 7, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
 }
 
@@ -862,14 +862,125 @@ body.light-mode .card-detail-backdrop {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    background: var(--bg-card);
+    background: rgba(9, 9, 11, 0.88);
     border: 1px solid var(--border-card);
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
 }
 
 body.light-mode .card-detail-panel {
+    background: rgba(248, 250, 252, 0.92);
     box-shadow: 0 4px 24px rgba(28, 53, 94, 0.14);
 }
+
+
+/* ───────────────────────────────────────────────────────────
+   FONDO ANIMADO DENTRO DEL PANEL EXPANDIDO
+   ─────────────────────────────────────────────────────────── */
+
+/* Beams SVG clonado (dark mode) */
+.cd-bg-beams {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 1;
+    transition: opacity var(--duration-base) var(--timing-ease);
+}
+
+/* Light mode: beams clonados también visibles con mismos overrides */
+body.light-mode .cd-bg-beams {
+    opacity: 1;
+}
+
+body.light-mode .cd-bg-beams > path:not(.beam) {
+    stroke: rgba(74, 108, 247, 0.07);
+    stroke-opacity: 1;
+}
+
+body.light-mode .cd-bg-beams .beam {
+    stroke-opacity: 0.18;
+    stroke-width: 1;
+}
+
+/* cd-bg-blobs — obsoleto, siempre oculto */
+.cd-bg-blobs {
+    display: none !important;
+}
+
+/* Glows clonados dentro del panel — light mode más visibles */
+body.light-mode .cd-bg-glow.glow-1 {
+    background: radial-gradient(ellipse, rgba(36, 58, 133, 0.18) 0%, transparent 65%);
+}
+body.light-mode .cd-bg-glow.glow-2 {
+    background: radial-gradient(ellipse, rgba(196, 41, 125, 0.14) 0%, transparent 65%);
+}
+body.light-mode .cd-bg-glow.glow-3 {
+    background: radial-gradient(ellipse, rgba(106, 191, 75, 0.12) 0%, transparent 65%);
+}
+body.light-mode .cd-bg-glow.glow-4 {
+    background: radial-gradient(ellipse, rgba(245, 166, 35, 0.12) 0%, transparent 65%);
+}
+
+/* Glows clonados dentro del panel */
+.cd-bg-glow {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    animation: breathe var(--glow-duration, 8s) ease-in-out infinite;
+}
+
+/* Elevar todo el contenido del panel por encima del fondo */
+.card-detail-panel .cd-accent-bar,
+.card-detail-panel .cd-header,
+.card-detail-panel .cd-items-grid {
+    position: relative;
+    z-index: 1;
+}
+
+/* Close button: mantiene position: absolute, solo sube z-index */
+.card-detail-panel .card-detail-close {
+    z-index: 10;
+}
+
+/* ───────────────────────────────────────────────────────────
+   FOOTER DEL PANEL EXPANDIDO
+   ─────────────────────────────────────────────────────────── */
+
+/* Dark mode: gradiente animado igual al footer del slide */
+.cd-footer-bar {
+    height: 5px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    background: linear-gradient(
+        90deg,
+        var(--color-primary),
+        var(--color-info),
+        var(--color-tertiary),
+        var(--color-primary)
+    );
+    background-size: 300% 100%;
+    animation: footer-flow 20s linear infinite;
+}
+
+/* Light mode: 3 barras sólidas igual al footer del slide */
+body.light-mode .cd-footer-bar {
+    background: none;
+    animation: none;
+    display: flex;
+    height: 8px;
+}
+
+.cd-bar-1 { flex: 1; background: var(--lm-primary);   border-radius: 0 0 0 var(--radius-md); }
+.cd-bar-2 { flex: 1; background: var(--lm-info);      }
+.cd-bar-3 { flex: 1; background: var(--lm-tertiary);  border-radius: 0 0 var(--radius-md) 0; }
+
+body.dark-mode .cd-bar-1,
+body.dark-mode .cd-bar-2,
+body.dark-mode .cd-bar-3 { display: none; }
 
 /* ───────────────────────────────────────────────────────────
    SLIDE EXPANDIDA — Opción A: Achievement Cards
@@ -954,19 +1065,39 @@ body.light-mode .card-detail-panel {
     grid-row: 1 / -1;
 }
 
-/* Mini achievement card — centered content */
+/* Mini achievement card — content top-aligned below badge */
 .cd-item-card {
     position: relative;
-    background: var(--bg-slide);
+    background: transparent;
     border: 1px solid var(--border-card);
     border-radius: 10px;
-    padding: 16px 18px 18px;
+    padding: 34px 18px 14px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
     transition: background-color var(--duration-base) var(--timing-ease),
                 border-color var(--duration-base) var(--timing-ease);
+}
+
+/* Cards with subitems: tighter spacing to fit content */
+.cd-item-card:not(.cd-hero):has(.cd-subitems) .cd-item-icon-lg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+}
+
+.cd-item-card:not(.cd-hero):has(.cd-subitems) {
+    padding-top: 30px;
+}
+
+.cd-item-card:not(.cd-hero):has(.cd-subitems) .cd-subitems li {
+    font-size: 11.5px;
+    line-height: 1.45;
+}
+
+.cd-item-card:not(.cd-hero):has(.cd-subitems) .cd-item-desc {
+    font-size: 11.5px;
 }
 
 /* Top accent line per mini-card */
@@ -983,11 +1114,11 @@ body.light-mode .card-detail-panel {
 .c-info     .cd-item-card::before { background: rgba(196, 41, 125, 0.55); }
 .c-amber    .cd-item-card::before { background: rgba(245, 166, 35, 0.55); }
 
-/* Number pill badge — small absolute top-left */
+/* Number pill badge — small absolute top-right (avoids icon overlap) */
 .cd-item-badge {
     position: absolute;
     top: 10px;
-    left: 14px;
+    right: 14px;
     font-family: var(--font-display);
     font-size: 10px;
     font-weight: var(--font-weight-bold);
@@ -1016,29 +1147,37 @@ body.light-mode .card-detail-panel {
     height: 32px;
     flex-shrink: 0;
     opacity: 0.55;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
-/* Hero card: larger icon + text + more padding */
-.cd-hero .cd-item-icon-lg {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 6px;
-}
-
+/* Hero card: large decorative icon, generous padding */
 .cd-hero {
-    padding: 18px 24px 22px;
+    padding: 34px 24px 28px;
+    justify-content: center;
 }
 
-/* Hero without subitems: scale up text to fill space */
-.cd-hero:not(:has(.cd-subitems)) .cd-item-title {
+.cd-hero .cd-item-icon-lg {
+    width: 52px;
+    height: 52px;
+    opacity: 0.55;
+    margin-bottom: 8px;
+}
+
+/* Hero: scale up text to fill space */
+.cd-hero .cd-item-title {
     font-size: 18px;
     line-height: 1.4;
 }
 
-.cd-hero:not(:has(.cd-subitems)) .cd-item-desc {
+.cd-hero .cd-item-desc {
     font-size: 14px;
     line-height: 1.6;
+    opacity: 0.88;
+}
+
+/* Non-hero cards: slightly larger desc */
+.cd-item-card:not(.cd-hero) .cd-item-desc {
+    font-size: 13px;
 }
 
 .c-primary  .cd-item-icon-lg { stroke: #4a6cf7; }

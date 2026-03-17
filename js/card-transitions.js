@@ -56,9 +56,94 @@ class CardTransitions {
     constructor(dataManager) {
         this.dataManager = dataManager;
         this.activeDetail = null;
+        this.isTransitioning = false;
+
+        // Navigation state: circular sequence overview→card0→overview→card1→...
+        this.cardOrder = ['primary', 'tertiary', 'info', 'amber'];
+        this.navPosition = 0; // even=overview, odd=expanded card
 
         document.addEventListener('cardsRendered', () => {
             requestAnimationFrame(() => this.checkOverflows());
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') { e.preventDefault(); this.navigateNext(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); this.navigatePrev(); }
+        });
+    }
+
+    navigateNext() {
+        if (this.isTransitioning) return;
+        const total = this.cardOrder.length * 2;
+        this.navPosition = (this.navPosition + 1) % total;
+        this.applyNavState();
+    }
+
+    navigatePrev() {
+        if (this.isTransitioning) return;
+        const total = this.cardOrder.length * 2;
+        this.navPosition = (this.navPosition - 1 + total) % total;
+        this.applyNavState();
+    }
+
+    applyNavState() {
+        const isExpanded = this.navPosition % 2 === 1;
+
+        if (isExpanded) {
+            const cardIdx = Math.floor(this.navPosition / 2);
+            const cardId = this.cardOrder[cardIdx];
+            const card = document.querySelector(`[data-card-id="${cardId}"]`);
+            const cardData = this.dataManager.getCardData(cardId);
+            if (!card || !cardData) return;
+
+            if (this.activeDetail) {
+                // Close current, then open next after transition
+                this.isTransitioning = true;
+                this.closeDetailAsync().then(() => {
+                    this.expandCard(card, cardData);
+                    this.isTransitioning = false;
+                });
+            } else {
+                this.expandCard(card, cardData);
+            }
+        } else {
+            if (this.activeDetail) {
+                this.isTransitioning = true;
+                this.closeDetail(false);
+            }
+        }
+    }
+
+    /** Returns a promise that resolves when the close transition finishes */
+    closeDetailAsync(syncNav = false) {
+        return new Promise(resolve => {
+            if (!this.activeDetail) { resolve(); return; }
+            const { overlay, sourceCard } = this.activeDetail;
+            const panel = overlay.querySelector('.card-detail-panel');
+
+            if (syncNav) {
+                const cardIdx = this.cardOrder.indexOf(sourceCard.dataset.cardId);
+                if (cardIdx >= 0) this.navPosition = cardIdx * 2;
+            }
+
+            if (!document.startViewTransition) {
+                overlay.remove();
+                this.activeDetail = null;
+                resolve();
+                return;
+            }
+
+            panel.style.viewTransitionName = 'card-expanding';
+            const transition = document.startViewTransition(() => {
+                panel.style.viewTransitionName = '';
+                sourceCard.style.viewTransitionName = 'card-expanding';
+                overlay.remove();
+            });
+            transition.finished.then(() => {
+                sourceCard.style.viewTransitionName = '';
+                this.activeDetail = null;
+                resolve();
+            });
         });
     }
 
@@ -99,6 +184,10 @@ class CardTransitions {
         const panel = overlay.querySelector('.card-detail-panel');
 
         this.activeDetail = { overlay, sourceCard: card };
+
+        // Sync nav position with manual click
+        const cardIdx = this.cardOrder.indexOf(cardData.id);
+        if (cardIdx >= 0) this.navPosition = cardIdx * 2 + 1;
 
         const slide = document.querySelector('.slide');
 
@@ -254,9 +343,40 @@ class CardTransitions {
         closeBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
         closeBtn.addEventListener('click', () => this.closeDetail());
 
+        // Inyectar fondo animado: clonar bg-beams, bg-blobs y glows del slide
+        const beams = document.querySelector('.bg-beams');
+        if (beams) {
+            const clone = beams.cloneNode(true);
+            clone.classList.remove('bg-beams');
+            clone.classList.add('cd-bg-beams');
+            panel.appendChild(clone);
+        }
+        const blobs = document.querySelector('.bg-blobs');
+        if (blobs) {
+            const clone = blobs.cloneNode(true);
+            clone.classList.remove('bg-blobs');
+            clone.classList.add('cd-bg-blobs');
+            panel.appendChild(clone);
+        }
+        document.querySelectorAll('.glow-1, .glow-2, .glow-3, .glow-4').forEach(g => {
+            const clone = g.cloneNode(true);
+            clone.classList.add('cd-bg-glow');
+            panel.appendChild(clone);
+        });
+
+        // Footer de colores (igual al del slide principal)
+        const cdFooter = document.createElement('div');
+        cdFooter.className = 'cd-footer-bar';
+        ['cd-bar-1', 'cd-bar-2', 'cd-bar-3'].forEach(cls => {
+            const bar = document.createElement('div');
+            bar.className = cls;
+            cdFooter.appendChild(bar);
+        });
+
         panel.appendChild(accentBar);
         panel.appendChild(header);
         panel.appendChild(grid);
+        panel.appendChild(cdFooter);
         panel.appendChild(closeBtn);
 
         overlay.appendChild(backdrop);
@@ -269,14 +389,20 @@ class CardTransitions {
         return overlay;
     }
 
-    closeDetail() {
+    closeDetail(syncNav = true) {
         if (!this.activeDetail) return;
         const { overlay, sourceCard } = this.activeDetail;
         const panel = overlay.querySelector('.card-detail-panel');
 
+        if (syncNav) {
+            const cardIdx = this.cardOrder.indexOf(sourceCard.dataset.cardId);
+            if (cardIdx >= 0) this.navPosition = cardIdx * 2;
+        }
+
         if (!document.startViewTransition) {
             overlay.remove();
             this.activeDetail = null;
+            this.isTransitioning = false;
             return;
         }
 
@@ -291,6 +417,7 @@ class CardTransitions {
         transition.finished.then(() => {
             sourceCard.style.viewTransitionName = '';
             this.activeDetail = null;
+            this.isTransitioning = false;
         });
     }
 }
