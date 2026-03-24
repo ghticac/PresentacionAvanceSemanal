@@ -1,8 +1,8 @@
 {
   "metadata": {
     "title": "Avances Coordinación de Tecnología",
-    "subtitle": "Semana del 17 de Marzo, 2026",
-    "week": "2026-03-17"
+    "subtitle": "Semana del 24 de Marzo, 2026",
+    "week": "2026-03-24"
   },
   "cards": [
     {
@@ -21,19 +21,14 @@
       "glowColor": "74,108,247",
       "items": [
         {
-          "title": "Levantamiento de requerimientos e historias de usuario",
-          "text": "Submódulo Seguimiento Cargue Soporte: variables IPS, cambio de régimen y estado Aprobado. Organización de matriz para seguimiento de entidades en adaptación para interoperabilidad y multiportal.",
+          "title": "Tableros Esclerosis Múltiple — Innovación",
+          "text": "Levantamiento de requerimiento y creación de historias de usuario sobre los tableros de esclerosis múltiple del área de Innovación.",
           "itemIcon": "clipboard"
         },
         {
-          "title": "Capacitación y asistencia técnica",
-          "text": "Capacitación dirigida a la IPS Sanar y Curar. Asistencia técnica en el proceso de cargue de información para Sanidad Militar.",
+          "title": "Interoperabilidad",
+          "text": "Acompañamiento en las capacitaciones de Interoperabilidad y seguimiento del proceso.",
           "itemIcon": "users"
-        },
-        {
-          "title": "Capacitación Multiportal — EPS Capresoca",
-          "text": "Pruebas a nueva funcionalidad del motor de reglas y pruebas al nuevo reporte de atenciones en salud.",
-          "itemIcon": "monitor"
         }
       ]
     },
@@ -52,31 +47,22 @@
       "glowColor": "106,191,75",
       "items": [
         {
-          "title": "Seguridad de endpoints",
-          "text": "Finalización de configuración y limpieza de agentes legacy en equipos.",
-          "itemIcon": "shield",
-          "subitems": [
-            "Se finalizó la configuración del control de navegación por Defender.",
-            "Se desinstaló Trellix de todos los equipos.",
-            "En proceso: corrección de versionamiento de Windows sin activar."
-          ]
+          "title": "Acceso SFTP Contraloría",
+          "text": "Solicitud de credenciales de acceso y posterior acceso al SFTP de la Contraloría para cargue de archivos solicitados.",
+          "itemIcon": "server"
         },
         {
-          "title": "Mantenimiento y respaldo",
-          "text": "Mantenimiento programado para sábado 21 de marzo de 2026.",
+          "title": "Tunnel VPN con Contraloría",
+          "text": "Diligenciamiento de la solicitud de Tunnel de VPN con la Contraloría.",
+          "itemIcon": "shield"
+        },
+        {
+          "title": "Ajustes de servidores",
+          "text": "Optimización de almacenamiento y archivos en servidores.",
           "itemIcon": "wrench",
           "subitems": [
-            "Actualización de servidores a Windows Server 2025.",
-            "Copia de soportes adicionales (requerimiento Minsalud) a disco externo con escaneo y generación de HASH de seguridad."
-          ]
-        },
-        {
-          "title": "Proyectos de infraestructura",
-          "text": "Nuevos entornos y optimización de recursos virtuales.",
-          "itemIcon": "server",
-          "subitems": [
-            "Habilitación de accesos y creación de servidor con restricciones para usuarios IDATA (extracción de datos).",
-            "Actualización de segmentos de red, memoria RAM y almacenamiento en servidores virtuales de Kubernetes."
+            "Ajuste de almacenamiento en servidor Bodega de datos BD TEMPDB.",
+            "Ajuste en servidor MKBOG021 para mover archivos de BD admin-bot."
           ]
         }
       ]
@@ -99,19 +85,19 @@
       "glowColor": "196,41,125",
       "items": [
         {
-          "title": "Requeridos VIH y Sin VIH",
-          "text": "Generación y publicación de requeridos a entidades.",
-          "itemIcon": "send"
+          "title": "Proceso duplicados — Cáncer",
+          "text": "Ajuste a nivel de lógica e infraestructura en el proceso de duplicados dado al volumen de datos requeridos para la enfermedad de Cáncer.",
+          "itemIcon": "zap"
         },
         {
-          "title": "Entrega de primera Preliminar BDDA",
-          "text": "Base de datos después de auditoría para las patologías: Enfermedad de Gaucher y Esclerosis Múltiple.",
+          "title": "Cohorte Salud Mental",
+          "text": "Finalización de ajustes de variables de auditoría para la cohorte de Salud Mental en ambiente de pruebas.",
           "itemIcon": "bar-chart"
         },
         {
-          "title": "Optimización TextoLíquido",
-          "text": "Mejora en el rendimiento de los procesos internos de TextoLíquido.",
-          "itemIcon": "zap"
+          "title": "Parametrización Interoperabilidad VIH",
+          "text": "Culminación de parametrización para las coberturas de interoperabilidad correspondientes a VIH y Sin VIH.",
+          "itemIcon": "send"
         }
       ]
     },
@@ -130,19 +116,19 @@
       "glowColor": "245,166,35",
       "items": [
         {
-          "title": "Mejoras en Gestor de Soportes",
-          "text": "Se habilita la opción para que las EAPBs puedan modificar soportes previamente aprobados.",
-          "itemIcon": "file-edit"
+          "title": "Nuevo Bot — Gestor de Soportes",
+          "text": "Comienzo del desarrollo del nuevo Bot del Gestor de Soportes: apoya a las EAPB en la aprobación masiva de soportes según NID, TID, Fecha y diagnóstico.",
+          "itemIcon": "terminal"
         },
         {
-          "title": "Visor Texto Líquido (pruebas)",
-          "text": "Optimización de UI/UX, incorporación de nuevas funcionalidades y refuerzo en seguridad.",
+          "title": "SISCAC 4.0 — Seguimiento Cargue Soportes IPS",
+          "text": "Inicio del desarrollo del nuevo módulo: compara ausencia de variables o soportes en cargues IPS.",
           "itemIcon": "eye"
         },
         {
-          "title": "Nueva API TextoLíquido",
-          "text": "API de interoperabilidad: permite consultar textos líquidos de soportes PDF.",
-          "itemIcon": "terminal"
+          "title": "Automatización reporte SIHEVI y REDDATA",
+          "text": "Envío automático de reporte mensual con información más completa; se envía cada 1° de mes a la subdirección.",
+          "itemIcon": "send"
         }
       ]
     }
