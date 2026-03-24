@@ -22,8 +22,13 @@
       "items": [
         {
           "title": "Tableros Esclerosis Múltiple — Innovación",
-          "text": "Levantamiento de requerimiento y creación de historias de usuario sobre los tableros de esclerosis múltiple del área de Innovación.",
+          "text": "Levantamiento de requerimiento sobre los tableros de esclerosis múltiple del área de Innovación.",
           "itemIcon": "clipboard"
+        },
+        {
+          "title": "Historias de usuario — Esclerosis Múltiple",
+          "text": "Creación de historias de usuario para los tableros de esclerosis múltiple del área de Innovación.",
+          "itemIcon": "file-edit"
         },
         {
           "title": "Interoperabilidad",
