@@ -1,14 +1,14 @@
 {
-  "name": "presentacionavancesemanal",
+  "name": "presentacion-avance-semanal",
   "version": "1.0.0",
   "description": "Slides semanales de avance por sub área de la Coordinación de Tecnología (CAC).",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "next": "^15.0.0",
+    "next": "15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
