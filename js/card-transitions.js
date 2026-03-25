@@ -166,16 +166,28 @@ class CardTransitions {
 
     makeExpandable(card, cardData) {
         card.classList.add('card--expandable');
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Ver detalle: ${cardData.title}`);
 
         const btn = document.createElement('button');
         btn.className = 'card-expand-btn';
-        btn.setAttribute('aria-label', `Ver detalle: ${cardData.title}`);
+        btn.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('tabindex', '-1');
         btn.textContent = 'Ver todo ↗';
         card.querySelector('.card-inner').appendChild(btn);
 
         card.addEventListener('click', () => {
             if (this.activeDetail) return;
             this.expandCard(card, cardData);
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (this.activeDetail) return;
+                this.expandCard(card, cardData);
+            }
         });
     }
 
@@ -277,7 +289,7 @@ class CardTransitions {
             grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         }
 
-        ordered.forEach(({ data: itemData, origIdx, isHero }) => {
+        ordered.forEach(({ data: itemData, origIdx, isHero }, displayIdx) => {
             const itemText = typeof itemData === 'string' ? itemData : itemData.text;
             const subitems = typeof itemData === 'object' && itemData.subitems ? itemData.subitems : null;
             const iconName = typeof itemData === 'object' ? itemData.itemIcon : null;

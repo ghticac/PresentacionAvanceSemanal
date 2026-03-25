@@ -106,6 +106,10 @@ body {
         max-width: 580px;
     }
 
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
     .title {
         font-size: 16px;
     }

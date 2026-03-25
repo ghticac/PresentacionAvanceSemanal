@@ -371,6 +371,11 @@ body.light-mode .badge {
     border-color: var(--text-muted);
 }
 
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
 .theme-toggle svg {
     width: 18px;
     height: 18px;
@@ -433,8 +438,16 @@ body.light-mode .badge {
     animation: beam-rotate 5s linear infinite;
 }
 
-.card:hover::before {
+.card:hover::before,
+.card:focus-visible::before {
     opacity: 1;
+}
+
+/* Keyboard focus outline for expandable cards */
+.card:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
 }
 
 @keyframes beam-rotate {
@@ -796,34 +809,39 @@ body.dark-mode .bar-3 {
     position: absolute;
     bottom: 8px;
     right: 8px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 20px;
     padding: 3px 10px;
     font-size: 11px;
     font-family: var(--font-primary);
     font-weight: var(--font-weight-semibold);
-    color: var(--text-muted);
+    color: var(--text-badge);
     cursor: pointer;
     z-index: 9;
     pointer-events: none;
     transition: background var(--duration-fast) ease,
                 color var(--duration-fast) ease;
     letter-spacing: 0.1px;
+    opacity: 0.7;
 }
 
 .card--expandable:hover .card-expand-btn {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.14);
     color: var(--text-secondary);
+    opacity: 1;
 }
 
 body.light-mode .card-expand-btn {
     background: rgba(28, 53, 94, 0.06);
-    border-color: rgba(28, 53, 94, 0.12);
+    border-color: rgba(28, 53, 94, 0.16);
+    color: #64748B;
+    opacity: 0.8;
 }
 
 body.light-mode .card--expandable:hover .card-expand-btn {
     background: rgba(28, 53, 94, 0.12);
+    opacity: 1;
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -1317,5 +1335,22 @@ body.light-mode .card-detail-close:hover {
     ::view-transition-old(card-expanding),
     ::view-transition-new(card-expanding) {
         animation-duration: 0.001ms !important;
+    }
+
+    .beam,
+    .glow-1, .glow-2, .glow-3, .glow-4,
+    .cd-bg-glow,
+    .title,
+    .footer-bar,
+    .cd-footer-bar,
+    .cd-accent-bar,
+    .card::before,
+    .logo-wrap::after {
+        animation: none !important;
+    }
+
+    .card {
+        animation: none !important;
+        opacity: 1;
     }
 }
