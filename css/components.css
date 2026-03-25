@@ -848,8 +848,7 @@ body.light-mode .card-detail-backdrop {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+    scrollbar-width: none;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -861,7 +860,11 @@ body.light-mode .card-detail-backdrop {
 body.light-mode .card-detail-panel {
     background: rgba(248, 250, 252, 0.92);
     box-shadow: 0 4px 24px rgba(28, 53, 94, 0.14);
-    scrollbar-color: rgba(28, 53, 94, 0.15) transparent;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.card-detail-panel::-webkit-scrollbar {
+    display: none;
 }
 
 
