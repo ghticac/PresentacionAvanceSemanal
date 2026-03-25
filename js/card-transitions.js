@@ -29,6 +29,7 @@ function createItemIconSVG(iconName) {
     svg.setAttribute('stroke-linecap', 'round');
     svg.setAttribute('stroke-linejoin', 'round');
     svg.classList.add('cd-item-icon');
+    svg.setAttribute('aria-hidden', 'true');
     svg.innerHTML = markup;
     return svg;
 }
@@ -52,6 +53,33 @@ function getHeroIndex(items) {
     return heroIdx;
 }
 
+/**
+ * Focus trap — keeps Tab/Shift+Tab cycling within the overlay dialog.
+ */
+function trapFocus(overlay) {
+    const focusable = overlay.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    overlay.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        if (e.shiftKey) {
+            if (document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else {
+            if (document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    });
+}
+
 class CardTransitions {
     constructor(dataManager) {
         this.dataManager = dataManager;
@@ -62,6 +90,10 @@ class CardTransitions {
         this.cardOrder = ['primary', 'tertiary', 'info', 'amber'];
         this.navPosition = 0; // even=overview, odd=expanded card
 
+        // Swipe tracking
+        this._touchStartX = 0;
+        this._touchStartY = 0;
+
         document.addEventListener('cardsRendered', () => {
             requestAnimationFrame(() => this.checkOverflows());
         });
@@ -70,7 +102,64 @@ class CardTransitions {
             if (e.key === 'ArrowRight') { e.preventDefault(); this.navigateNext(); }
             if (e.key === 'ArrowLeft') { e.preventDefault(); this.navigatePrev(); }
         });
+
+        // Deep linking: open card from URL hash on load
+        this._handleHashOnLoad();
     }
+
+    /* ─── Deep Linking ─── */
+
+    _handleHashOnLoad() {
+        const tryHash = () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && this.cardOrder.includes(hash)) {
+                const card = document.querySelector(`[data-card-id="${hash}"]`);
+                const cardData = this.dataManager.getCardData(hash);
+                if (card && cardData) {
+                    this.expandCard(card, cardData);
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        // Cards may not be rendered yet — wait for event
+        if (!tryHash()) {
+            document.addEventListener('cardsRendered', () => {
+                setTimeout(() => tryHash(), 100);
+            });
+        }
+
+        // Listen for back/forward navigation
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (!hash && this.activeDetail) {
+                this.closeDetail(true, false); // don't push state
+            } else if (hash && this.cardOrder.includes(hash) && !this.activeDetail) {
+                const card = document.querySelector(`[data-card-id="${hash}"]`);
+                const cardData = this.dataManager.getCardData(hash);
+                if (card && cardData) this.expandCard(card, cardData, false);
+            }
+        });
+    }
+
+    _pushHash(cardId) {
+        if (window.location.hash !== `#${cardId}`) {
+            history.pushState(null, '', `#${cardId}`);
+        }
+    }
+
+    _clearHash(pushState = true) {
+        if (window.location.hash) {
+            if (pushState) {
+                history.pushState(null, '', window.location.pathname + window.location.search);
+            } else {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
+        }
+    }
+
+    /* ─── Navigation ─── */
 
     navigateNext() {
         if (this.isTransitioning) return;
@@ -126,9 +215,14 @@ class CardTransitions {
                 if (cardIdx >= 0) this.navPosition = cardIdx * 2;
             }
 
+            // Restore background content to screen readers
+            const content = document.querySelector('.content');
+            if (content) content.removeAttribute('aria-hidden');
+
             if (!document.startViewTransition) {
                 overlay.remove();
                 this.activeDetail = null;
+                this._clearHash();
                 resolve();
                 return;
             }
@@ -142,6 +236,7 @@ class CardTransitions {
             transition.finished.then(() => {
                 sourceCard.style.viewTransitionName = '';
                 this.activeDetail = null;
+                this._clearHash();
                 resolve();
             });
         });
@@ -170,13 +265,6 @@ class CardTransitions {
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-label', `Ver detalle: ${cardData.title}`);
 
-        const btn = document.createElement('button');
-        btn.className = 'card-expand-btn';
-        btn.setAttribute('aria-hidden', 'true');
-        btn.setAttribute('tabindex', '-1');
-        btn.textContent = 'Ver todo ↗';
-        card.querySelector('.card-inner').appendChild(btn);
-
         card.addEventListener('click', () => {
             if (this.activeDetail) return;
             this.expandCard(card, cardData);
@@ -191,7 +279,7 @@ class CardTransitions {
         });
     }
 
-    expandCard(card, cardData) {
+    expandCard(card, cardData, pushState = true) {
         const overlay = this.createOverlay(card, cardData);
         const panel = overlay.querySelector('.card-detail-panel');
 
@@ -201,11 +289,20 @@ class CardTransitions {
         const cardIdx = this.cardOrder.indexOf(cardData.id);
         if (cardIdx >= 0) this.navPosition = cardIdx * 2 + 1;
 
+        // Deep link
+        if (pushState) this._pushHash(cardData.id);
+
+        // Hide background content from screen readers
+        const content = document.querySelector('.content');
+        if (content) content.setAttribute('aria-hidden', 'true');
+
         const slide = document.querySelector('.slide');
 
         if (!document.startViewTransition) {
             slide.appendChild(overlay);
+            trapFocus(overlay);
             overlay.querySelector('.card-detail-close')?.focus();
+            this._updateNavIndicator(cardData.id);
             return;
         }
 
@@ -219,7 +316,9 @@ class CardTransitions {
 
         transition.finished.then(() => {
             panel.style.viewTransitionName = '';
+            trapFocus(overlay);
             overlay.querySelector('.card-detail-close')?.focus();
+            this._updateNavIndicator(cardData.id);
         });
     }
 
@@ -241,7 +340,7 @@ class CardTransitions {
         const accentBar = document.createElement('div');
         accentBar.className = 'cd-accent-bar';
 
-        // 2. Header
+        // 2. Header — uses semantic headings
         const header = document.createElement('div');
         header.className = 'cd-header';
 
@@ -254,7 +353,7 @@ class CardTransitions {
         const titleGroup = document.createElement('div');
         titleGroup.className = 'cd-title-group';
 
-        const titleEl = document.createElement('div');
+        const titleEl = document.createElement('h2');
         titleEl.className = 'cd-title';
         titleEl.textContent = cardData.title;
 
@@ -271,6 +370,7 @@ class CardTransitions {
         // 3. Bento grid — hero item (most content) takes left full-height
         const grid = document.createElement('div');
         grid.className = 'cd-items-grid';
+        grid.setAttribute('aria-label', 'Avances de la semana');
 
         const items = cardData.items;
         const heroIdx = items.length === 3 ? getHeroIndex(items) : -1;
@@ -289,7 +389,7 @@ class CardTransitions {
             grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         }
 
-        ordered.forEach(({ data: itemData, origIdx, isHero }, displayIdx) => {
+        ordered.forEach(({ data: itemData, origIdx, isHero }) => {
             const itemText = typeof itemData === 'string' ? itemData : itemData.text;
             const subitems = typeof itemData === 'object' && itemData.subitems ? itemData.subitems : null;
             const iconName = typeof itemData === 'object' ? itemData.itemIcon : null;
@@ -316,12 +416,12 @@ class CardTransitions {
                 }
             }
 
-            // Title (explicit or fallback to text)
+            // Title (explicit or fallback to text) — semantic h3
             const titleText = typeof itemData === 'object' && itemData.title ? itemData.title : itemText;
-            const titleEl = document.createElement('div');
-            titleEl.className = 'cd-item-title';
-            titleEl.textContent = titleText;
-            body.appendChild(titleEl);
+            const itemTitleEl = document.createElement('h3');
+            itemTitleEl.className = 'cd-item-title';
+            itemTitleEl.textContent = titleText;
+            body.appendChild(itemTitleEl);
 
             // Description (only if title exists, text becomes desc)
             if (typeof itemData === 'object' && itemData.title) {
@@ -354,6 +454,30 @@ class CardTransitions {
         closeBtn.setAttribute('aria-label', 'Cerrar');
         closeBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
         closeBtn.addEventListener('click', () => this.closeDetail());
+
+        // 5. Nav indicator dots
+        const navIndicator = document.createElement('div');
+        navIndicator.className = 'cd-nav-indicator';
+        navIndicator.setAttribute('aria-label', 'Navegación entre secciones');
+        this.cardOrder.forEach(id => {
+            const dot = document.createElement('button');
+            dot.className = 'cd-nav-dot';
+            dot.dataset.cardId = id;
+            dot.setAttribute('aria-label', this.dataManager.getCardData(id)?.title || id);
+            if (id === cardData.id) dot.classList.add('cd-nav-dot--active');
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const targetCard = document.querySelector(`[data-card-id="${id}"]`);
+                const targetData = this.dataManager.getCardData(id);
+                if (!targetCard || !targetData || id === cardData.id) return;
+                this.isTransitioning = true;
+                this.closeDetailAsync().then(() => {
+                    this.expandCard(targetCard, targetData);
+                    this.isTransitioning = false;
+                });
+            });
+            navIndicator.appendChild(dot);
+        });
 
         // Inyectar fondo animado: clonar bg-beams, bg-blobs y glows del slide
         const beams = document.querySelector('.bg-beams');
@@ -388,20 +512,89 @@ class CardTransitions {
         panel.appendChild(accentBar);
         panel.appendChild(header);
         panel.appendChild(grid);
+        panel.appendChild(navIndicator);
         panel.appendChild(cdFooter);
         panel.appendChild(closeBtn);
 
         overlay.appendChild(backdrop);
         overlay.appendChild(panel);
 
+        // Keyboard: Escape to close
         overlay.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.closeDetail();
         });
 
+        // Swipe-to-close (swipe down) and swipe-to-navigate (swipe left/right)
+        this._attachSwipe(panel);
+
         return overlay;
     }
 
-    closeDetail(syncNav = true) {
+    /* ─── Nav Indicator ─── */
+
+    _updateNavIndicator(activeId) {
+        if (!this.activeDetail) return;
+        const dots = this.activeDetail.overlay.querySelectorAll('.cd-nav-dot');
+        dots.forEach(dot => {
+            dot.classList.toggle('cd-nav-dot--active', dot.dataset.cardId === activeId);
+        });
+    }
+
+    /* ─── Swipe Gestures ─── */
+
+    _attachSwipe(panel) {
+        panel.addEventListener('touchstart', (e) => {
+            this._touchStartX = e.touches[0].clientX;
+            this._touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        panel.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - this._touchStartX;
+            const dy = e.changedTouches[0].clientY - this._touchStartY;
+            const absDx = Math.abs(dx);
+            const absDy = Math.abs(dy);
+
+            // Minimum threshold
+            if (absDx < 50 && absDy < 80) return;
+
+            // Vertical swipe down: close
+            if (absDy > absDx && dy > 80) {
+                this.closeDetail();
+                return;
+            }
+
+            // Horizontal swipe: navigate between cards
+            if (absDx > absDy && absDx > 50) {
+                if (dx < 0) {
+                    // Swipe left → next card
+                    this._navigateToAdjacentCard(1);
+                } else {
+                    // Swipe right → prev card
+                    this._navigateToAdjacentCard(-1);
+                }
+            }
+        }, { passive: true });
+    }
+
+    _navigateToAdjacentCard(direction) {
+        if (this.isTransitioning || !this.activeDetail) return;
+        const currentId = this.activeDetail.sourceCard.dataset.cardId;
+        const currentIdx = this.cardOrder.indexOf(currentId);
+        const nextIdx = (currentIdx + direction + this.cardOrder.length) % this.cardOrder.length;
+        const nextId = this.cardOrder[nextIdx];
+
+        const nextCard = document.querySelector(`[data-card-id="${nextId}"]`);
+        const nextData = this.dataManager.getCardData(nextId);
+        if (!nextCard || !nextData) return;
+
+        this.isTransitioning = true;
+        this.closeDetailAsync().then(() => {
+            this.expandCard(nextCard, nextData);
+            this.isTransitioning = false;
+        });
+    }
+
+    closeDetail(syncNav = true, pushState = true) {
         if (!this.activeDetail) return;
         const { overlay, sourceCard } = this.activeDetail;
         const panel = overlay.querySelector('.card-detail-panel');
@@ -411,10 +604,17 @@ class CardTransitions {
             if (cardIdx >= 0) this.navPosition = cardIdx * 2;
         }
 
+        this._clearHash(pushState);
+
+        // Restore background content to screen readers
+        const content = document.querySelector('.content');
+        if (content) content.removeAttribute('aria-hidden');
+
         if (!document.startViewTransition) {
             overlay.remove();
             this.activeDetail = null;
             this.isTransitioning = false;
+            sourceCard.focus();
             return;
         }
 
@@ -430,6 +630,7 @@ class CardTransitions {
             sourceCard.style.viewTransitionName = '';
             this.activeDetail = null;
             this.isTransitioning = false;
+            sourceCard.focus();
         });
     }
 }

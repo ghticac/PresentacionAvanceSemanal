@@ -47,11 +47,15 @@ class ThemeManager {
 
     updateIcons(isDarkMode) {
         if (isDarkMode) {
-            this.sunIcon.style.display = 'none';
-            this.moonIcon.style.display = 'block';
-        } else {
+            // Dark mode: show sun icon (click to go light)
             this.sunIcon.style.display = 'block';
             this.moonIcon.style.display = 'none';
+            this.themeToggle.setAttribute('aria-label', 'Cambiar a modo claro');
+        } else {
+            // Light mode: show moon icon (click to go dark)
+            this.sunIcon.style.display = 'none';
+            this.moonIcon.style.display = 'block';
+            this.themeToggle.setAttribute('aria-label', 'Cambiar a modo oscuro');
         }
     }
 

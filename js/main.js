@@ -4,7 +4,6 @@
 
 import ThemeManager from './theme.js';
 import DateManager from './date.js';
-import SpotlightEffect from './spotlight.js';
 import DataManager from './data-manager.js';
 import CardTransitions from './card-transitions.js';
 
@@ -22,8 +21,7 @@ function initializeApp() {
     // Initialize date management
     new DateManager();
 
-    // SpotlightEffect and CardTransitions both listen for 'cardsRendered'
-    new SpotlightEffect();
+    // CardTransitions listens for 'cardsRendered'
     new CardTransitions(dataManager);
 
     console.log('Application initialized successfully');

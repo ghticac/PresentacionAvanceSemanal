@@ -12,6 +12,11 @@ class DataManager {
      * Load data from JSON file
      */
     async loadData() {
+        const grid = document.querySelector('.grid');
+
+        // Show skeleton placeholders while loading
+        if (grid) this._showSkeleton(grid);
+
         try {
             const response = await fetch('./data/data.json');
             if (!response.ok) throw new Error(`Failed to load data: ${response.status}`);
@@ -21,8 +26,53 @@ class DataManager {
             console.log('Data loaded successfully', this.data);
         } catch (error) {
             console.error('Error loading data:', error);
-            // Fallback: show default content if JSON fails
+            if (grid) this._showError(grid);
         }
+    }
+
+    /**
+     * Show skeleton loading placeholders
+     */
+    _showSkeleton(grid) {
+        grid.innerHTML = '';
+        for (let i = 0; i < 4; i++) {
+            const skeleton = document.createElement('div');
+            skeleton.className = 'card card--skeleton';
+            skeleton.style.animationDelay = `${0.05 + i * 0.1}s`;
+            skeleton.innerHTML = `
+                <div class="card-inner" style="pointer-events:none">
+                    <div class="card-header">
+                        <div class="skeleton-box" style="width:36px;height:36px;border-radius:8px"></div>
+                        <div class="skeleton-box" style="width:60%;height:14px;border-radius:4px"></div>
+                    </div>
+                    <div class="items" style="gap:8px;margin-top:6px">
+                        <div class="skeleton-box" style="width:90%;height:11px;border-radius:3px"></div>
+                        <div class="skeleton-box" style="width:75%;height:11px;border-radius:3px"></div>
+                        <div class="skeleton-box" style="width:80%;height:11px;border-radius:3px"></div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(skeleton);
+        }
+    }
+
+    /**
+     * Show error state when data fails to load
+     */
+    _showError(grid) {
+        grid.innerHTML = '';
+        const errorEl = document.createElement('div');
+        errorEl.className = 'data-error';
+        errorEl.setAttribute('role', 'alert');
+        errorEl.innerHTML = `
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <p style="margin:8px 0 4px;font-size:14px;font-weight:600;color:var(--text-primary)">No se pudieron cargar los datos</p>
+            <p style="font-size:12px;color:var(--text-muted);margin:0 0 12px">Verifica tu conexión o que el archivo data.json sea accesible.</p>
+            <button class="data-error-retry" onclick="location.reload()">Reintentar</button>
+        `;
+        grid.appendChild(errorEl);
     }
 
     /**
@@ -63,10 +113,6 @@ class DataManager {
         const cardInner = document.createElement('div');
         cardInner.className = 'card-inner';
         cardInner.setAttribute('data-glow-color', cardData.glowColor);
-
-        // Card spotlight
-        const spotlight = document.createElement('div');
-        spotlight.className = 'card-spotlight';
 
         // Card header
         const cardHeader = document.createElement('div');
@@ -129,7 +175,6 @@ class DataManager {
             }
         });
 
-        cardInner.appendChild(spotlight);
         cardInner.appendChild(cardHeader);
         cardInner.appendChild(itemsContainer);
 
