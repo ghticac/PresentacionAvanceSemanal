@@ -18,8 +18,12 @@ function initializeApp() {
     // Initialize theme management
     new ThemeManager();
 
-    // Initialize date management
-    new DateManager();
+    // Initialize date management — updates badge once data is loaded
+    const dateManager = new DateManager();
+    document.addEventListener('cardsRendered', () => {
+        const week = dataManager.data?.metadata?.week;
+        if (week) dateManager.updateDate(week);
+    }, { once: true });
 
     // CardTransitions listens for 'cardsRendered'
     new CardTransitions(dataManager);

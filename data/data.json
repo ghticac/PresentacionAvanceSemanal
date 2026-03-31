@@ -1,8 +1,8 @@
 {
   "metadata": {
     "title": "Avances Coordinación de Tecnología",
-    "subtitle": "Semana del 24 de Marzo, 2026",
-    "week": "2026-03-24"
+    "subtitle": "Semana del 1 de Abril, 2026",
+    "week": "2026-04-01"
   },
   "cards": [
     {
@@ -21,19 +21,24 @@
       "glowColor": "74,108,247",
       "items": [
         {
-          "title": "Tableros Esclerosis Múltiple — Innovación",
-          "text": "Levantamiento de requerimiento sobre los tableros de esclerosis múltiple del área de Innovación.",
+          "title": "Acompañamiento cohorte Hemofilia",
+          "text": "Apoyo a entidades en reporte y validación de datos de la cohorte de Hemofilia.",
+          "itemIcon": "users"
+        },
+        {
+          "title": "Pruebas a módulos y herramientas",
+          "text": "Pruebas al Gestor de Soportes, reporte de atenciones en salud, visor de texto líquido y asistencia técnica a Famisanar y Alinsalud.",
           "itemIcon": "clipboard"
         },
         {
-          "title": "Historias de usuario — Esclerosis Múltiple",
-          "text": "Creación de historias de usuario para los tableros de esclerosis múltiple del área de Innovación.",
+          "title": "Levantamiento de requerimientos",
+          "text": "Historias de usuario y prototipos para ajustes del Visor de Texto AudiCAC y Gestor de Soporte. Seguimiento a Interoperabilidad.",
           "itemIcon": "file-edit"
         },
         {
           "title": "Interoperabilidad",
-          "text": "Acompañamiento en las capacitaciones de Interoperabilidad y seguimiento del proceso.",
-          "itemIcon": "users"
+          "text": "Gestión de reuniones y seguimiento del proyecto de Interoperabilidad.",
+          "itemIcon": "send"
         }
       ]
     },
@@ -52,23 +57,24 @@
       "glowColor": "106,191,75",
       "items": [
         {
-          "title": "Acceso SFTP Contraloría",
-          "text": "Solicitud de credenciales de acceso y posterior acceso al SFTP de la Contraloría para cargue de archivos solicitados.",
+          "title": "Servidor Virtual Azure — IDATA",
+          "text": "Implementación de servidor virtual en Azure con restricciones tipo STATA.",
           "itemIcon": "server"
         },
         {
-          "title": "Tunnel VPN con Contraloría",
-          "text": "Diligenciamiento de la solicitud de Tunnel de VPN con la Contraloría.",
+          "title": "Licenciamiento Windows Enterprise",
+          "text": "Sesiones con soporte Microsoft para activación de licenciamiento en equipos.",
           "itemIcon": "shield"
         },
         {
-          "title": "Ajustes de servidores",
-          "text": "Optimización de almacenamiento y archivos en servidores.",
-          "itemIcon": "wrench",
-          "subitems": [
-            "Ajuste de almacenamiento en servidor Bodega de datos BD TEMPDB.",
-            "Ajuste en servidor MKBOG021 para mover archivos de BD admin-bot."
-          ]
+          "title": "Reglas de asignación en GLPI",
+          "text": "Configuración de reglas de asignación para gestión de inventarios.",
+          "itemIcon": "wrench"
+        },
+        {
+          "title": "Actualización de credenciales admin",
+          "text": "Credenciales actualizadas en Sitio Web, Node-Red, API e info@cuentaedaltocosto.org por prevención de ciberataques.",
+          "itemIcon": "lock"
         }
       ]
     },
@@ -90,19 +96,24 @@
       "glowColor": "196,41,125",
       "items": [
         {
-          "title": "Proceso duplicados — Cáncer",
-          "text": "Ajuste a nivel de lógica e infraestructura en el proceso de duplicados dado al volumen de datos requeridos para la enfermedad de Cáncer.",
-          "itemIcon": "zap"
-        },
-        {
-          "title": "Cohorte Salud Mental",
-          "text": "Finalización de ajustes de variables de auditoría para la cohorte de Salud Mental en ambiente de pruebas.",
+          "title": "Salud Mental — Interoperabilidad",
+          "text": "Parametrización de Salud Mental en ambiente de producción para interoperabilidad.",
           "itemIcon": "bar-chart"
         },
         {
-          "title": "Parametrización Interoperabilidad VIH",
-          "text": "Culminación de parametrización para las coberturas de interoperabilidad correspondientes a VIH y Sin VIH.",
-          "itemIcon": "send"
+          "title": "Migración de funciones ILMA",
+          "text": "Inicio de migración de funciones ILMA hacia procesos de base de datos en SQL.",
+          "itemIcon": "database"
+        },
+        {
+          "title": "Hepatitis C — Micrositios y AudiCAC",
+          "text": "Publicación de archivos en micrositios y cargue de población en AudiCAC.",
+          "itemIcon": "zap"
+        },
+        {
+          "title": "Cáncer — Depuración de requeridos",
+          "text": "Generación y depuración de requeridos para la enfermedad de Cáncer.",
+          "itemIcon": "filter"
         }
       ]
     },
@@ -121,19 +132,28 @@
       "glowColor": "245,166,35",
       "items": [
         {
-          "title": "Nuevo Bot — Gestor de Soportes",
-          "text": "Comienzo del desarrollo del nuevo Bot del Gestor de Soportes: apoya a las EAPB en la aprobación masiva de soportes según NID, TID, Fecha y diagnóstico.",
+          "title": "Nueva API de Texto Líquido",
+          "text": "Permite a las EAPB consultar textos de soportes PDF extraídos mediante OCR.",
           "itemIcon": "terminal"
         },
         {
-          "title": "SISCAC 4.0 — Seguimiento Cargue Soportes IPS",
-          "text": "Inicio del desarrollo del nuevo módulo: compara ausencia de variables o soportes en cargues IPS.",
-          "itemIcon": "eye"
+          "title": "Visor de Soportes AudiCAC y Seguimiento Cargue IPS",
+          "text": "Dos módulos en desarrollo:",
+          "itemIcon": "eye",
+          "subitems": [
+            "Visor AudiCAC — En pruebas por Calidad de Software y Auditoría",
+            "Seguimiento cargue IPS — Etapa final de desarrollo (90%)"
+          ]
         },
         {
-          "title": "Automatización reporte SIHEVI y REDDATA",
-          "text": "Envío automático de reporte mensual con información más completa; se envía cada 1° de mes a la subdirección.",
-          "itemIcon": "send"
+          "title": "Reporte de Atenciones en Salud",
+          "text": "Cargues exitosos con validación, respuesta clara (éxito/error) y generación de logs de errores.",
+          "itemIcon": "bar-chart"
+        },
+        {
+          "title": "Bot Gestor de Soportes — SISCAC 4.0",
+          "text": "Bot en etapa de optimización e integración con SISCAC 4.0.",
+          "itemIcon": "zap"
         }
       ]
     }

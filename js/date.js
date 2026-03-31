@@ -16,17 +16,17 @@ class DateManager {
         this.updateDate();
     }
 
-    updateDate() {
-        const today = new Date();
-        const day = today.getDate();
-        const month = this.months[today.getMonth()];
+    updateDate(dateOverride) {
+        const d = dateOverride ? new Date(dateOverride + 'T12:00:00') : new Date();
+        const day = d.getDate();
+        const month = this.months[d.getMonth()];
         this.badgeElement.textContent = `${day} de ${month}`;
     }
 
-    getFormattedDate() {
-        const today = new Date();
-        const day = today.getDate();
-        const month = this.months[today.getMonth()];
+    getFormattedDate(dateOverride) {
+        const d = dateOverride ? new Date(dateOverride + 'T12:00:00') : new Date();
+        const day = d.getDate();
+        const month = this.months[d.getMonth()];
         return `${day} de ${month}`;
     }
 }
