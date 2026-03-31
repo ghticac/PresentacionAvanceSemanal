@@ -146,8 +146,8 @@
           ]
         },
         {
-          "title": "Reporte de Atenciones en Salud",
-          "text": "Cargues exitosos con validación, respuesta clara (éxito/error) y generación de logs de errores.",
+          "title": "Reporte de Atenciones en Salud v2.0",
+          "text": "Nueva versión 2.0: cargues exitosos con validación, respuesta clara (éxito/error) y generación de logs de errores.",
           "itemIcon": "bar-chart"
         },
         {
